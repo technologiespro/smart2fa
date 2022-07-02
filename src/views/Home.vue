@@ -4,7 +4,18 @@
       <div class="container">
         <b-button-group>
           <b-button>Добавить ключ</b-button>
-          <b-button>Импортировать ключи</b-button>
+          <b-button @click="op = 'importKeys'">Импортировать ключи</b-button>
+
+          <div v-if="op === 'importKeys'">
+            <b-form-textarea
+                id="textarea"
+                v-model="dataUri"
+                placeholder="Enter something..."
+                rows="3"
+                max-rows="6"
+            ></b-form-textarea>
+          </div>
+
         </b-button-group>
       </div>
 
@@ -24,6 +35,7 @@ export default {
   },
   data() {
     return {
+      op: null,
       dataUri: null,
     }
   },
