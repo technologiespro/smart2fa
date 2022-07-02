@@ -1,5 +1,31 @@
+const path = require('path');
+const webpack = require('webpack');
+
+function resolveSrc(_path) {
+  return path.join(__dirname, _path);
+}
+
 module.exports = {
-  publicPath: '',
+  publicPath: '/',
+  lintOnSave: true,
+  configureWebpack: {
+    optimization: {
+      // We no not want to minimize our code.
+      minimize: false
+    },
+    // Set up all the aliases we use in our app.
+    resolve: {
+      alias: {
+        src: resolveSrc('src'),
+        assets: resolveSrc('src/assets')
+      }
+    },
+    plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 6
+      }),
+    ],
+  },
 
   pluginOptions: {
     cordovaPath: 'src-cordova',
@@ -15,7 +41,7 @@ module.exports = {
         './node_modules'
       ],
       builderOptions: {
-        productName: 'SmartHoldem',
+        productName: 'smart2fa',
         appId: 'io.smartholdem.2fa',
         compression: 'store',
         artifactName: '${name}-${os}-${arch}-${version}.${ext}',
@@ -67,5 +93,11 @@ module.exports = {
 
   css: {
     sourceMap: true
-  }
+  },
+
+  outputDir: undefined,
+  assetsDir: undefined,
+  runtimeCompiler: undefined,
+  productionSourceMap: false,
+  parallel: undefined
 }
