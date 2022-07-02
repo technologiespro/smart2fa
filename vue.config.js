@@ -36,6 +36,9 @@ module.exports = {
       enableInSFC: false
     },
     electronBuilder: {
+      electronBuilder: {
+        nodeIntegration: true
+      },
       nodeModulesPath: [
         '../../node_modules',
         './node_modules'
