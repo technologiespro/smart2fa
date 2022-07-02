@@ -7,6 +7,7 @@
           <b-button @click="op = 'importKeys'">Импортировать ключи</b-button>
 
           <div v-if="op === 'importKeys'">
+            <p>Импорт ключейн из Google Auth</p>
             <b-form-textarea
                 id="textarea"
                 v-model="dataUri"
@@ -14,7 +15,7 @@
                 rows="3"
                 max-rows="6"
             ></b-form-textarea>
-            <b-button variant="outline-primary">Подтвердить импорт</b-button>
+            <b-button @click="migrationImport" variant="outline-primary">Подтвердить импорт</b-button>
 
             <div>
               {{ importResult }}
