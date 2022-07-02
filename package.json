@@ -21,7 +21,8 @@
     "cordova-serve-browser": "cross-env CORDOVA_PLATFORM=browser vue-cli-service cordova-serve-browser",
     "cordova-serve-electron": "cross-env CORDOVA_PLATFORM=electron vue-cli-service cordova-serve-electron",
     "cordova-serve-ios": "cross-env CORDOVA_PLATFORM=ios vue-cli-service cordova-serve-ios",
-    "cordova-serve-osx": "cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx"
+    "cordova-serve-osx": "cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx",
+    "i18n:report": "vue-cli-service i18n:report --src \\\"./src/**/*.?(js|vue)\\\" --locales \\\"src/locales/**/*.json\\\""
   },
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
@@ -34,6 +35,7 @@
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.26.3",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -50,6 +52,7 @@
     "sass-loader": "^10.0.2",
     "vue-cli-plugin-bootstrap-vue": "^0.8.2",
     "vue-cli-plugin-cordova": "~2.4.1",
+    "vue-cli-plugin-i18n": "^2.3.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
