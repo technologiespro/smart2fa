@@ -14,6 +14,11 @@
                 rows="3"
                 max-rows="6"
             ></b-form-textarea>
+            <b-button variant="outline-primary">Подтвердить импорт</b-button>
+
+            <div>
+              {{ importResult }}
+            </div>
           </div>
 
         </b-button-group>
@@ -30,21 +35,20 @@ import parser from "otpauth-migration-parser";
 
 export default {
   name: 'Home',
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       op: null,
       dataUri: null,
+      importResult: null,
     }
   },
   methods: {
     async migrationImport() {
       const parsedDataList = await parser(this.dataUri);
-      let result = [];
+      this.importResult = [];
       for (let otpSecretInfo of parsedDataList) {
-        result.push(otpSecretInfo);
+        this.importResult.push(otpSecretInfo);
         /* =>
           {
             secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -57,7 +61,6 @@ export default {
           }
         */
       }
-      return result;
     }
   }
 }
