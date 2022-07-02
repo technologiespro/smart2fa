@@ -1,5 +1,6 @@
 module.exports = {
-  publicPath: '/',
+  publicPath: '',
+
   pluginOptions: {
     cordovaPath: 'src-cordova',
     i18n: {
@@ -8,5 +9,9 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: false
     },
+  },
+
+  css: {
+    sourceMap: true
   }
 }
