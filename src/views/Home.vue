@@ -1,7 +1,14 @@
 <template>
   <div class="home">
+    <div class="row">
+      <div class="container">
+        <b-button-group>
+          <b-button>Добавить ключ</b-button>
+          <b-button>Импортировать ключи</b-button>
+        </b-button-group>
+      </div>
 
-    <b-button pill variant="primary">+</b-button>
+    </div>
   </div>
 </template>
 
@@ -18,8 +25,9 @@ export default {
   methods: {
     async migrationImport(dataUri) {
       const parsedDataList = await parser(dataUri);
+      let result = [];
       for (let otpSecretInfo of parsedDataList) {
-        console.log(otpSecretInfo);
+        result.push(otpSecretInfo);
         /* =>
           {
             secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -32,6 +40,7 @@ export default {
           }
         */
       }
+      return result;
     }
   }
 }
