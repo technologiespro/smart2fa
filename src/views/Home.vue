@@ -22,9 +22,14 @@ export default {
   components: {
 
   },
+  data() {
+    return {
+      dataUri: null,
+    }
+  },
   methods: {
-    async migrationImport(dataUri) {
-      const parsedDataList = await parser(dataUri);
+    async migrationImport() {
+      const parsedDataList = await parser(this.dataUri);
       let result = [];
       for (let otpSecretInfo of parsedDataList) {
         result.push(otpSecretInfo);
