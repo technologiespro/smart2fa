@@ -17,7 +17,9 @@
     "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "node-2fa": "^2.0.3",
+    "otpauth-migration-parser": "^0.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",
