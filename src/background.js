@@ -43,7 +43,22 @@ async function createWindow() {
   });
 }
 
-
+/// Force Single Instance Application
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.exit()
+} else {
+  app.on('second-instance', (_, argv) => {
+    // Someone tried to run a second instance, we should focus our window.
+    // argv: An array of the second instance’s (command line / deep linked) arguments
+    if (win) {
+      if (win.isMinimized()) {
+        win.restore()
+      }
+      win.focus()
+    }
+  })
+}
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
