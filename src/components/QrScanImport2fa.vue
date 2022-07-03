@@ -1,15 +1,12 @@
 <template>
   <div>
-    <qrcode-stream style="width:200px; height:200px;" @decode="onDecode" @init="onInit" />
+    <qrcode-stream style="width:200px; height:200px; border: solid 2px #333;" @decode="onDecode" @init="onInit" />
   </div>
 </template>
 
 <script>
-import parser from "otpauth-migration-parser";
-
+'use strict';
 document.addEventListener('deviceready', function() {
-
-
   let permissions = cordova.plugins.permissions;
   permissions.requestPermission(permissions.CAMERA, success, error);
 
@@ -45,18 +42,18 @@ document.addEventListener('deviceready', function() {
 
    */
 
-  var now = Date.now();
   /*
-  navigator.mediaDevices.getUserMedia({audio: false, video: true})
-      .then(function(stream) {
-        console.log('Got stream, time diff :', Date.now() - now);
-      })
-      .catch(function(err) {
-        console.log('GUM failed with error, time diff: ', Date.now() - now);
-      });
+ var now = Date.now();
+ navigator.mediaDevices.getUserMedia({audio: false, video: true})
+     .then(function(stream) {
+       console.log('Got stream, time diff :', Date.now() - now);
+     })
+     .catch(function(err) {
+       console.log('GUM failed with error, time diff: ', Date.now() - now);
+     });
 
 
-   */
+  */
   navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
         document.getElementById('camera').srcObject = stream;
@@ -71,9 +68,9 @@ document.addEventListener('deviceready', function() {
   function success( status ) {
     if( !status.hasPermission ) error();
   }
-  //console.log('cordova.plugins.permissions is now available');
 });
 
+import parser from "otpauth-migration-parser";
 import {QrcodeStream} from 'vue-qrcode-reader'
 
 export default {
@@ -104,6 +101,8 @@ export default {
           }
         */
       }
+
+
     },
     onDecode (result) {
       this.dataUri = result
