@@ -19,9 +19,11 @@
 
     </div>
 
+    <div style="height:472px; overflow-y:auto">
     <div v-for="(item, idx) in importResult" v-bind:key="idx">
       {{item}}
       <hr/>
+    </div>
     </div>
 
   </div>
@@ -54,7 +56,7 @@ export default {
 <style>
   .home {
     max-width:480px;
-    min-height: 768px;
+    height: 768px;
     border:solid 1px #ccc;
     margin-left: auto;
     margin-right: auto;
