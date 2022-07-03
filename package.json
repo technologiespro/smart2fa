@@ -34,6 +34,7 @@
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
+    "emittery": "^0.11.0",
     "mutationobserver-shim": "^0.3.7",
     "node-2fa": "^2.0.3",
     "otpauth-migration-parser": "^0.1.1",
