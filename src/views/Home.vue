@@ -1,68 +1,54 @@
 <template>
   <div class="home">
     <div class="row">
-      <div class="container">
+      <div class="container-fluid">
         <b-button-group>
-          <b-button>Добавить ключ</b-button>
-          <b-button @click="op = 'importKeys'">Импортировать ключи</b-button>
-
-          <div v-if="op === 'importKeys'">
-            <p>Импорт ключейн из Google Auth</p>
-            <b-form-textarea
-                id="textarea"
-                v-model="dataUri"
-                placeholder="Enter something..."
-                rows="3"
-                max-rows="6"
-            ></b-form-textarea>
-            <b-button @click="migrationImport" variant="outline-primary">Подтвердить импорт</b-button>
-
-            <div>
-              {{ importResult }}
-            </div>
-          </div>
-
+          <b-button @click="op = 'addKey'">Добавить</b-button>
+          <b-button @click="op = 'importKeys'">Импортировать</b-button>
         </b-button-group>
       </div>
 
+
+      <div class="ml-auto mr-auto">
+        <div v-if="op === 'importKeys'">
+          <p>Импорт ключейн из Google Auth</p>
+          <p><QrScanImport2fa/></p>
+        </div>
+      </div>
+
     </div>
+
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
-import parser from "otpauth-migration-parser";
+import QrScanImport2fa from '@/components/QrScanImport2fa.vue'
+
 
 export default {
   name: 'Home',
-  components: {},
+  components: { QrScanImport2fa },
   data() {
     return {
       op: null,
-      dataUri: null,
-      importResult: null,
+      dataUri: "",
+      importResult: [],
+      error: "",
     }
   },
   methods: {
-    async migrationImport() {
-      const parsedDataList = await parser(this.dataUri);
-      this.importResult = [];
-      for (let otpSecretInfo of parsedDataList) {
-        this.importResult.push(otpSecretInfo);
-        /* =>
-          {
-            secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
-            name: 'sample',
-            issuer: 'sample',
-            algorithm: 'sha1',
-            digits: 6,
-            type: 'totp',
-            counter: Long { low: 0, high: 0, unsigned: false }
-          }
-        */
-      }
-    }
+
   }
 }
 </script>
+
+<style>
+  .home {
+    max-width:480px;
+    min-height: 768px;
+    border:solid 1px #ccc;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
