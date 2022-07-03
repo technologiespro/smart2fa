@@ -2,13 +2,14 @@
   <div class="home">
     <div class="row">
       <div class="container-fluid">
+        <span class="badge badge-info float-left">{{allKeys.length}}</span>
         <b-button-group>
           <b-button @click="op = 'addKey'">Добавить</b-button>
           <b-button @click="op = 'importKeys'">Импортировать</b-button>
         </b-button-group>
       </div>
 
-      {{allKeys.length}}
+
       <div class="ml-auto mr-auto">
         <div v-if="op === 'importKeys'">
           <p>Импорт ключейн из Google Auth</p>
@@ -21,7 +22,7 @@
 
     </div>
 
-    <div style="height:472px; overflow-y:auto">
+    <div class="mt-1" style="height:700px; overflow-y:auto">
       <div v-for="item in allKeys" v-bind:key="item.secret">
         {{ item.name }}
         <hr/>
