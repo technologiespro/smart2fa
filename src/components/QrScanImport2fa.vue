@@ -78,18 +78,18 @@ export default {
   name: "QrScanImport2fa",
   data() {
     return {
-      dataUri: "",
       importResult: [],
       error: "",
     }
   },
   components: { QrcodeStream },
   methods: {
-    async migrationImport() {
-      const parsedDataList = await parser(this.dataUri);
-      this.importResult = [];
+    async migrationImport(dataUri) {
+      const parsedDataList = await parser(dataUri);
+      console.log('parsedDataList', parsedDataList)
+      let result = [];
       for (let otpSecretInfo of parsedDataList) {
-        this.importResult.push(otpSecretInfo);
+        result.push(otpSecretInfo);
         /* =>
           {
             secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -103,11 +103,11 @@ export default {
         */
       }
 
-      eventBus.emit('qr:importKeys', this.importResult)
+      await eventBus.emit('qr:importKeys', result)
 
     },
-    onDecode (result) {
-      this.dataUri = result
+    async onDecode (result) {
+      await this.migrationImport(result);
     },
     async onInit (promise) {
       try {

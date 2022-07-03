@@ -16,8 +16,12 @@
         </div>
       </div>
 
+
     </div>
 
+    <p>
+      {{importResult}}
+    </p>
 
   </div>
 </template>
@@ -32,13 +36,17 @@ export default {
   data() {
     return {
       op: null,
-      dataUri: "",
       importResult: [],
-      error: "",
     }
   },
   methods: {
 
+  },
+  async created() {
+    await this.$eventBus.on('qr:importKeys', async (data) => {
+      console.log(data)
+      this.importResult = data;
+    });
   }
 }
 </script>
