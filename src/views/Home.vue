@@ -48,6 +48,7 @@ export default {
   async created() {
     await this.$eventBus.on('qr:importKeys', async (data) => {
       this.importResult = data;
+      //await this.$store.dispatch('keys2fa/setKeys', data)
     });
   }
 }

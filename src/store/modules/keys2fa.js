@@ -20,12 +20,13 @@
  * SOFTWARE.
  *
  */
+import _ from 'lodash';
 
 export default {
     namespaced: true,
 
     state: {
-        faKeys: {},
+        faKeys: [],
     },
 
     getters: {
@@ -34,7 +35,7 @@ export default {
 
     mutations: {
         SET_KEYS (state, payload) {
-            state.faKeys = payload
+            state.faKeys = _.unionBy([payload],state.faKeys,'_id');
         },
     },
 
