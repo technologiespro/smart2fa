@@ -2,7 +2,7 @@
   <div class="home">
     <div class="row">
       <div class="container-fluid">
-        <span class="badge badge-info float-left">{{allKeys.length}}</span>
+        <span class="badge badge-info float-left">{{allKeys.length}}</span> {{process}}
         <b-button-group>
           <b-button @click="op = 'addKey'">Добавить</b-button>
           <b-button @click="op = 'importKeys'">Импортировать</b-button>
@@ -43,13 +43,16 @@ export default {
     return {
       op: null,
       importResult: [],
+      allKeys: [],
+      timer: null,
+      process: false,
     }
   },
+  /*
   computed: {
     allKeys() {
 
       let keys = this.$store.getters['keys2fa/faKeys'];
-      console.log(keys)
       let result = [];
       for (let i=0; i < keys.length; i++) {
         result[i] = {
@@ -61,9 +64,38 @@ export default {
 
       return (result)
     }
+
   },
-  methods: {},
+   */
+methods: {
+    async listTokens() {
+      this.$store._vm.$on('vuex-persist:ready', async () => {
+        let keys = this.$store.getters['keys2fa/faKeys'];
+        let result = [];
+        for (let i=0; i < keys.length; i++) {
+          result[i] = {
+            issuer: keys[i].issuer,
+            name: keys[i].name,
+            token: twofactor.generateToken(keys[i].secret).token
+          }
+        }
+        this.allKeys = result;
+
+      })
+
+    },
+
+    async generateTokens() {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(async () => {
+        await this.listTokens();
+        await this.generateTokens();
+      }, 50000);
+    }
+  },
   async created() {
+
+
     await this.$eventBus.on('qr:importKeys', async (data) => {
       for (let i = 0; i < data.length; i++) {
         let isDublicate = false;
@@ -77,7 +109,9 @@ export default {
         }
       }
       await this.$store.dispatch('keys2fa/setKeys', this.importResult);
+      await this.listTokens();
     });
+    await this.listTokens();
   }
 }
 </script>
