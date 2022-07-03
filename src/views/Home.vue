@@ -22,9 +22,10 @@
 
     </div>
 
-    <div class="mt-1" style="height:700px; overflow-y:auto">
+    <div class="mt-1 text-left ml-2" style="height:700px; overflow-y:auto">
       <div v-for="item in allKeys" v-bind:key="item.secret">
-        {{ item.name }}
+        {{ item.name }}<br/>
+        <span class="font-weight-bolder">{{ item.token }}</span>
         <hr/>
       </div>
     </div>
@@ -33,7 +34,7 @@
 
 <script>
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue'
-
+const twofactor = require("node-2fa");
 
 export default {
   name: 'Home',
@@ -46,12 +47,21 @@ export default {
   },
   computed: {
     allKeys() {
-      return (this.$store.getters['keys2fa/faKeys'])
+
+      let keys = this.$store.getters['keys2fa/faKeys'];
+      let result = [];
+      for (let i=0; i < keys.length; i++) {
+        result[i] = {
+          name: keys[i].name,
+          token: twofactor.generateToken(keys[i].secret).token
+        }
+      }
+
+      return (result)
     }
   },
   methods: {},
   async created() {
-    //this.allKeys = this.$store.getters['keys2fa/faKeys'];
     await this.$eventBus.on('qr:importKeys', async (data) => {
       for (let i = 0; i < data.length; i++) {
         let isDublicate = false;
@@ -64,14 +74,8 @@ export default {
           this.importResult.push(data[i]);
         }
       }
-
-
-      //this.importResult = data;
       await this.$store.dispatch('keys2fa/setKeys', this.importResult);
-      //this.allKeys = this.$store.getters['keys2fa/faKeys'];
     });
-
-
   }
 }
 </script>
