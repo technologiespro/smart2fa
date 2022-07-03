@@ -24,7 +24,7 @@
 
     <div class="mt-1 text-left ml-2" style="height:700px; overflow-y:auto">
       <div v-for="item in allKeys" v-bind:key="item.secret">
-        {{ item.name }}<br/>
+        {{item.issuer}} {{ item.name }}<br/>
         <span class="font-weight-bolder">{{ item.token }}</span>
         <hr/>
       </div>
@@ -49,9 +49,11 @@ export default {
     allKeys() {
 
       let keys = this.$store.getters['keys2fa/faKeys'];
+      console.log(keys)
       let result = [];
       for (let i=0; i < keys.length; i++) {
         result[i] = {
+          issuer: keys[i].issuer,
           name: keys[i].name,
           token: twofactor.generateToken(keys[i].secret).token
         }
