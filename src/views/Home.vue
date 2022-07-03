@@ -24,7 +24,7 @@
 
     <div class="mt-1 text-left ml-2" style="height:700px; overflow-y:auto">
       <div v-for="item in allKeys" v-bind:key="item.secret">
-        {{item.issuer}} {{ item.name }}<br/>
+        <span v-show="!item.name.includes(item.issuer)">{{item.issuer}}</span> {{ item.name }}<br/>
         <span class="font-weight-bolder">{{ item.token }}</span>
         <hr/>
       </div>
