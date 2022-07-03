@@ -72,6 +72,7 @@ document.addEventListener('deviceready', function() {
 
 import parser from "otpauth-migration-parser";
 import {QrcodeStream} from 'vue-qrcode-reader'
+import eventBus from '@/plugins/event-bus';
 
 export default {
   name: "QrScanImport2fa",
@@ -102,6 +103,7 @@ export default {
         */
       }
 
+      eventBus.emit('qr:importKeys', this.importResult)
 
     },
     onDecode (result) {
