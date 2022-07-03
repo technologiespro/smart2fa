@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home overflow-hidden">
     <div class="row">
 
 
@@ -15,11 +15,20 @@
 
     </div>
 
-    <div class="mt-1 text-left ml-2" style="height:700px; overflow-y:auto">
+    <div class="row overflow-hidden">
+      <div class="container-fluid" style="background: rgb(193 51 162);;">
+        <b-progress :value="((countdown * (seconds / totalSeconds * 100) / 100))" :max="countdown" animated></b-progress>
+        <span style="float: right;width:40px;height: 5px;background: #1fab1a;" :style="'width:' + ((countdown * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
+      </div>
+
+    </div>
+
+
+    <div class="mt-1 text-left ml-2" style="height:640px; overflow-y:auto">
+
       <div v-for="item in allKeys" v-bind:key="item.secret">
         <span v-show="!item.name.includes(item.issuer)">{{item.issuer}}</span> {{ item.name }}<br/>
         <span class="font-weight-bolder text-info">{{ item.token }}</span>
-        <span style="float: right;width:40px;height: 20px;background: #1a5eab;" :style="'width:' + seconds + 'px;'"></span>
         <hr/>
       </div>
     </div>
@@ -52,6 +61,7 @@ export default {
       seconds: 0,
       totalSeconds: 40,
       timerTimeout: null,
+      countdown: 480,
     }
   },
   /*
@@ -147,9 +157,9 @@ methods: {
 
 <style>
 .home {
-  max-width: 480px;
+  max-width: 100%;
   height: 768px;
-  border: solid 1px #ccc;
+  /* border: solid 1px #ccc;*/
   margin-left: auto;
   margin-right: auto;
 }
