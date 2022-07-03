@@ -19,9 +19,10 @@
 
     </div>
 
-    <p>
-      {{importResult}}
-    </p>
+    <div v-for="(item, idx) in importResult" v-bind:key="idx">
+      {{item}}
+      <hr/>
+    </div>
 
   </div>
 </template>
@@ -44,7 +45,6 @@ export default {
   },
   async created() {
     await this.$eventBus.on('qr:importKeys', async (data) => {
-      console.log(data)
       this.importResult = data;
     });
   }

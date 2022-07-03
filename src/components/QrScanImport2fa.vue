@@ -86,7 +86,6 @@ export default {
   methods: {
     async migrationImport(dataUri) {
       const parsedDataList = await parser(dataUri);
-      console.log('parsedDataList', parsedDataList)
       let result = [];
       for (let otpSecretInfo of parsedDataList) {
         result.push(otpSecretInfo);
