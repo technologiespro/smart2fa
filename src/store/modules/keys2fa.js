@@ -35,7 +35,7 @@ export default {
 
     mutations: {
         SET_KEYS (state, payload) {
-            state.faKeys = _.unionBy([payload],state.faKeys,'_id');
+            state.faKeys = payload;
         },
     },
 

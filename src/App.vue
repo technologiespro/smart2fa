@@ -8,6 +8,17 @@
   </div>
 </template>
 
+<script>
+
+export default {
+  async created() {
+    this.$store._vm.$on('vuex-persist:ready', async () => {
+     //console.log(await this.$store.getters['keys2fa/faKeys'])
+
+    })
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
