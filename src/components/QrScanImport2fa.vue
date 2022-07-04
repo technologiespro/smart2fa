@@ -6,9 +6,20 @@
 
 <script>
 'use strict';
+/*
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+  console.log(navigator.camera);
+}
+ */
+
 document.addEventListener('deviceready', function() {
+  /*
   let permissions = cordova.plugins.permissions;
   permissions.requestPermission(permissions.CAMERA, success, error);
+
+   */
+
 
   /*
   navigator.permissions.query({name: 'camera'})
