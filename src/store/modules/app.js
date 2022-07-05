@@ -20,6 +20,7 @@
  * SOFTWARE.
  *
  */
+import i18n from '@/i18n';
 
 export default {
     namespaced: true,
@@ -35,6 +36,13 @@ export default {
     mutations: {
         SET_LANGUAGE (state, payload) {
             state.language = payload
+        },
+    },
+
+    actions: {
+        setLanguage ({ commit }, value) {
+            commit('SET_LANGUAGE', value)
+            i18n.locale = value
         },
     }
 }
