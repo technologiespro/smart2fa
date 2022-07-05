@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <qrcode-stream style="width:200px; height:200px; border: solid 2px #333;" @decode="onDecode" @init="onInit" />
-  </div>
+    <qrcode-stream @decode="onDecode" @init="onInit" />
 </template>
 
 <script>
