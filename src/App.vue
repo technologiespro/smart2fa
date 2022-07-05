@@ -50,24 +50,28 @@
 </template>
 
 <script>
-import {generateToken} from "node-2fa";
+//import {generateToken} from "node-2fa";
+
 export default {
-  computed: {
-    allKeys() {
-
-      let keys = this.$store.getters['keys2fa/faKeys'];
-      let result = [];
-      for (let i=0; i < keys.length; i++) {
-        result[i] = {
-          issuer: keys[i].issuer,
-          name: keys[i].name,
-          token: generateToken(keys[i].secret).token
+  methods: {
+    minimize: function () {
+        if (process.env.IS_ELECTRON) {
+          const electron = require('electron');
+          const window = electron.remote.getCurrentWindow();
+          window.minimize()
         }
+
+    },
+    close: function () {
+      if (process.env.IS_ELECTRON) {
+        const electron = require('electron');
+        const window = electron.remote.getCurrentWindow();
+        window.close()
       }
-
-      return (result)
+    },
+    reload: function () {
+    //  reload();
     }
-
   },
   async created() {
     this.$store._vm.$on('vuex-persist:ready', async () => {
