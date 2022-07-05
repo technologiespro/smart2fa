@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "yarn run serve -- --port 8086 --open",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -31,6 +32,7 @@
   "main": "background.js",
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
+    "animated-number-vue": "^1.0.0",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
