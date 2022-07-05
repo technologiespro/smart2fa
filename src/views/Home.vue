@@ -1,5 +1,34 @@
 <template>
   <div class="w-100">
+    <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top" style="position: fixed;background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
+      <b-navbar-brand><img width="22px" src="/images/logo48.png"/> Smart2FA</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+
+        <b-navbar-nav>
+          <b-nav-item @click="op = 'importKeys'; ddShow = false" class="text-white">{{$t('import_from_google')}}</b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <!--
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          </b-nav-form>
+          -->
+          <!--
+                      <b-nav-item-dropdown text="Lang" right>
+                        <b-dropdown-item href="#">RU</b-dropdown-item>
+                        <b-dropdown-item href="#">CN</b-dropdown-item>
+                        <b-dropdown-item href="#">EN</b-dropdown-item>
+                      </b-nav-item-dropdown>
+              -->
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <!--{{storedKeys}}-->
     <div v-if="op === 'importKeys'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
       <QrScanImport2fa style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
@@ -44,7 +73,6 @@
           <b-nav vertical class="w-100">
             <b-nav-item  @click="op = 'addKeyQR'; ddShow = false">Сканировать QR</b-nav-item>
             <b-nav-item  @click="op = 'addKeyIn'; ddShow = false">Ввести новый ключ</b-nav-item>
-            <b-nav-item  @click="op = 'importKeys'; ddShow = false">Импортировать из Google 2FA</b-nav-item>
           </b-nav>
         </div>
 
@@ -93,6 +121,11 @@ export default {
     }
   },
   methods: {
+    async saveToFile() {
+      const fs = require('fs');
+      fs.writeFile('smart2fa.json', this.storedKeys);
+
+    },
     async makeToast(variant = null, title= 'Success', message = '') {
       this.$bvToast.toast(message, {
         title: title,
