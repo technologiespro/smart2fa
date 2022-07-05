@@ -4,9 +4,10 @@ import VuexPersistence from 'vuex-persist'
 import * as localforage from 'localforage';
 import {pullAll, keys} from 'lodash';
 
-import vuexPersistReady from '@/store/plugins/vuex-persist-ready'
+import vuexPersistReady from '@/store/plugins/vuex-persist-ready';
 
-import keys2fa from '@/store/modules/keys2fa'
+import keys2fa from '@/store/modules/keys2fa';
+import app from '@/store/modules/app';
 
 
 //import * as memoryDriver from 'localforage-driver-memory'
@@ -14,6 +15,7 @@ import keys2fa from '@/store/modules/keys2fa'
 Vue.use(Vuex)
 
 const modules = {
+  app: app,
   keys2fa: keys2fa,
 };
 
