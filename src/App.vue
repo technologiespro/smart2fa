@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top" style="position: fixed;">
+      <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top" style="position: fixed;background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
         <b-navbar-brand><img width="22px" src="/images/logo48.png"/> Smart2FA</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -72,6 +72,21 @@ export default {
 }
 </script>
 <style>
+-moz-scrollbar, ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+
+::-webkit-scrollbar {
+  background-color: #fefdf9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);
+  border: 1px solid #434a52;
+}
+
 body, html {
   padding: 0;
   margin: 0;
