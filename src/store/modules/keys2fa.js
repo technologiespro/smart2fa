@@ -20,7 +20,7 @@
  * SOFTWARE.
  *
  */
-import _ from 'lodash';
+//import _ from 'lodash';
 
 export default {
     namespaced: true,
@@ -35,7 +35,19 @@ export default {
 
     mutations: {
         SET_KEYS (state, payload) {
-            state.faKeys = payload;
+            let importResult = state.faKeys;
+            for (let i = 0; i < payload.length; i++) {
+                let isDublicate = false;
+                for (let j = 0; j < importResult.length; j++) {
+                    if (importResult[j].secret === payload[i].secret) {
+                        isDublicate = true;
+                    }
+                }
+                if (!isDublicate) {
+                    importResult.push(payload[i]);
+                }
+            }
+            state.faKeys = importResult;
         },
     },
 
