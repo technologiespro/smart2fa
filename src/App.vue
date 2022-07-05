@@ -10,10 +10,12 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
+            <!--
             <b-nav-form>
               <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
             </b-nav-form>
+            -->
 
             <b-nav-item-dropdown text="Lang" right>
               <b-dropdown-item href="#">RU</b-dropdown-item>
@@ -41,8 +43,8 @@
 -->
     <router-view/>
 
-    <div class="text-center w-100" style="position: absolute; bottom: 10px;">
-      <a target="_blank" href="https://smartholdem.io" class="small">(C) SmartHoldem</a>
+    <div class="text-center w-100" style="position: absolute; bottom: 10px; font-size: 24pt;">
+      <a target="_blank" href="https://smartholdem.io" class="small text-danger"><img width="32px" src="images/48x48.png"/> SmartHoldem</a>
     </div>
   </div>
 </template>

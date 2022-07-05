@@ -32,7 +32,7 @@
         </span>
       </div>
 
-        <img @click="ddShow = !ddShow" width="48px" style="position: absolute; bottom: 10px; right: 10px;" src="/images/add.png"/>
+        <img @click="ddShow = !ddShow" width="42px" style="position: absolute; bottom: 10px; right: 10px; z-index: 1000;" src="images/add.png"/>
         <div v-show="ddShow" style="position: absolute; bottom: 60px;right: 10px; background: #bdc0c2;">
           <b-nav vertical class="w-100">
             <b-nav-item  @click="op = 'addKeyQR'; ddShow = false">Сканировать QR</b-nav-item>
@@ -103,6 +103,9 @@ export default {
     },
 
     async generateTokens() {
+      if (this.storedKeys.length < 1) {
+        return;
+      }
       console.log('generateTokens');
       clearInterval(this.timer);
       clearTimeout(this.timerTimeout);
