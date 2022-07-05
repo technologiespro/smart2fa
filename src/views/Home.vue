@@ -22,6 +22,8 @@
           {{item.token}}
         </span>
       </div>
+
+        <img width="48px" style="position: absolute; bottom: 10px; right: 10px;" src="/images/add.png"/>
       </div>
 
     </div>
@@ -82,10 +84,10 @@ export default {
     }
   },
   methods: {
-    makeToast(variant = null, title= 'Success', message = '') {
+    async makeToast(variant = null, title= 'Success', message = '') {
       this.$bvToast.toast(message, {
         title: title,
-        toaster: 'b-toaster-bottom-right',
+        toaster: 'b-toaster-top-right',
         variant: variant,
         solid: true
       })
@@ -140,7 +142,7 @@ export default {
       this.op = 'home';
       await this.$store.dispatch('keys2fa/setKeys', data);
       await this.generateTokens();
-      await this.makeToast('success', 'Ключи успешно добавлены ' + data.length);
+      await this.makeToast('success', 'Импорт', 'Добавлены ключи ' + data.length);
     });
   }
 }
