@@ -27,7 +27,7 @@ document.addEventListener('deviceready', function () {
 });
 
 import {QrcodeStream} from 'vue-qrcode-reader'
-//import eventBus from '@/plugins/event-bus';
+import eventBus from '@/plugins/event-bus';
 import * as OTPAuth from 'otpauth';
 
 export default {
@@ -41,9 +41,15 @@ export default {
   components: {QrcodeStream},
   methods: {
     async addKeyFromQr(dataUri) {
-      let parsedTotp = OTPAuth.URI.parse(dataUri);
-      console.log(parsedTotp)
-      //await eventBus.emit('qr:importKeys', [parsedTotp])
+      const parsedTotp = OTPAuth.URI.parse(dataUri);
+      await eventBus.emit('qr:importKeys', [{
+        algorithm: parsedTotp.algorithm,
+        digits: parsedTotp.digits || 6,
+        issuer: parsedTotp.issuer,
+        name: parsedTotp.label,
+        period: parsedTotp.period || 30,
+        secret: parsedTotp.secret.base32,
+      }])
     },
     async onDecode(result) {
       await this.addKeyFromQr(result);

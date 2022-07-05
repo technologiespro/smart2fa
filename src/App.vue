@@ -43,9 +43,7 @@
 -->
     <router-view/>
 
-    <div class="text-center w-100" style="position: absolute; bottom: 10px; font-size: 24pt;">
-      <a target="_blank" href="https://smartholdem.io" class="small text-danger"><img width="32px" src="images/48x48.png"/> SmartHoldem</a>
-    </div>
+
   </div>
 </template>
 
