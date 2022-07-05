@@ -23,9 +23,9 @@
           </b-nav-form>
           -->
 
-          <b-nav-item-dropdown text="Lang" right style="text-shadow: 1px 1px 0.1em #333;">
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-nav-item-dropdown :text="$t('lang')" right style="text-shadow: 1px 1px 0.1em #333;">
+            <b-dropdown-item>RU</b-dropdown-item>
+            <b-dropdown-item>EN</b-dropdown-item>
           </b-nav-item-dropdown>
 
         </b-navbar-nav>
@@ -67,7 +67,7 @@
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
-        <div v-for="(item) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa">
+        <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa" @click="selectedItem(idx)">
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
           <span class="font-weight-bold token">
           {{ item.token }}
@@ -91,9 +91,9 @@
 
     </div>
 
-    <div v-show="ddShow" class="text-center w-100"
-         style="position: absolute; bottom: 10px; font-size: 18pt;background: #fff;">
-      <a target="_blank" href="https://smartholdem.io" class="small text-danger">Powered by <img width="24px"
+    <div v-show="ddShow" class="text-left w-100 pl-3"
+         style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
+      <a target="_blank" href="https://smartholdem.io" class="small text-danger">Powered by <img width="18px"
                                                                                                  src="images/48x48.png"/>
         SmartHoldem</a>
     </div>
@@ -125,6 +125,7 @@ export default {
       totalSeconds: 32,
       timerTimeout: null,
       screenWidth: 480,
+      selectedItem: null,
     }
   },
   computed: {
@@ -133,6 +134,9 @@ export default {
     }
   },
   methods: {
+    async itemSelect(idx) {
+      this.selectedItem = idx;
+    },
     async saveToFile() {
       const fs = require('fs');
       fs.writeFile('smart2fa.json', this.storedKeys);
@@ -212,8 +216,12 @@ export default {
   padding-top: 2px;
 }
 
+.item-2fa .active {
+  background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);
+}
+
 .item-2fa:hover {
-  background: #bdc0c2;
+  background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);
   cursor: pointer;
   border-bottom: 1px;
   border-bottom: solid 1px #1371ce;
