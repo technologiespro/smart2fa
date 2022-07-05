@@ -40,9 +40,10 @@
     </div>
 -->
     <router-view/>
-    <p class="text-center">
+
+    <div class="text-center w-100" style="position: absolute; bottom: 10px;">
       <a target="_blank" href="https://smartholdem.io" class="small">(C) SmartHoldem</a>
-    </p>
+    </div>
   </div>
 </template>
 

@@ -5,8 +5,7 @@
       <b-form-input class="mt-2" v-model="secret" placeholder="Укажите ключ"></b-form-input>
 
       <div class="mt-2">
-        <b-button>Отмена</b-button>
-        <b-button @click="AddKeyToApp" variant="outline-primary">Добавить</b-button>
+        <b-button class="w-100" @click="AddKeyToApp" variant="outline-primary">Добавить</b-button>
       </div>
 
     </b-card>
@@ -27,18 +26,19 @@ export default {
 
   methods: {
     async AddKeyToApp() {
-      let result = [
-        {
-          secret: this.secret,
-          name: this.name,
-          issuer: '',
-          algorithm: 'sha1',
-          digits: 6,
-          type: 'totp',
-          counter: 0,
-        }
-      ];
-      await eventBus.emit('qr:importKeys', result)
+      if (this.secret && this.name) {
+        await eventBus.emit('qr:importKeys', [
+          {
+            secret: this.secret,
+            name: this.name,
+            issuer: '',
+            algorithm: 'sha1',
+            digits: 6,
+            type: 'totp',
+            counter: 0,
+          }
+        ]);
+      }
     }
   }
 }

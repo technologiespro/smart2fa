@@ -1,5 +1,6 @@
 <template>
   <div class="w-100">
+    <!--{{storedKeys}}-->
     <div v-if="op === 'importKeys'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
       <QrScanImport2fa style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
@@ -7,8 +8,8 @@
       </div>
     </div>
 
-    <div v-if="op === 'addKeyIn'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 0 !important; margin: 0 !important; ">
-      <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; height:100%; border: solid 2px #333;margin-top: 80px;"/>
+    <div v-if="op === 'addKeyIn'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important; ">
+      <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; margin-top: 80px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
@@ -24,8 +25,8 @@
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
-      <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa">
-        {{idx+1}} <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
+      <div v-for="(item) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa">
+        <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
         <span class="font-weight-bold token">
           {{item.token}}
         </span>
