@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav>
-          <b-nav-item @click="op = 'importKeys'; ddShow = false" class="text-white">{{$t('import_from_google')}}</b-nav-item>
+          <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('import_from_google')}}</span></b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -19,13 +19,12 @@
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
           -->
-          <!--
-                      <b-nav-item-dropdown text="Lang" right>
+
+                      <b-nav-item-dropdown text="Lang" right style="text-shadow: 1px 1px 0.1em #333;">
                         <b-dropdown-item href="#">RU</b-dropdown-item>
-                        <b-dropdown-item href="#">CN</b-dropdown-item>
                         <b-dropdown-item href="#">EN</b-dropdown-item>
                       </b-nav-item-dropdown>
-              -->
+
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
