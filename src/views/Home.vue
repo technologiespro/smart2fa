@@ -106,7 +106,7 @@ export default {
       if (this.storedKeys.length < 1) {
         return;
       }
-      console.log('generateTokens');
+      //console.log('generateTokens');
       clearInterval(this.timer);
       clearTimeout(this.timerTimeout);
       await this.regenerateTokens();
