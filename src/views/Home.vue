@@ -6,6 +6,16 @@
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
     </div>
+
+    <div v-if="op === 'addKeyIn'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 0 !important; margin: 0 !important; ">
+      <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; height:100%; border: solid 2px #333;margin-top: 80px;"/>
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
+        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+      </div>
+    </div>
+
+
+
     <div class="row">
 
       <div class="container mb-2" style="margin-top:55px;">
@@ -40,14 +50,14 @@
 
 <script>
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue'
+import AddNewKeyIn from '@/components/AddNewKeyIn.vue'
 import {generateToken} from "node-2fa";
-//import AnimatedNumber from "animated-number-vue";
 
 export default {
   name: 'Home',
   components: {
     QrScanImport2fa,
-    //AnimatedNumber
+    AddNewKeyIn,
   },
   data() {
     return {
@@ -66,19 +76,6 @@ export default {
   computed: {
     storedKeys() {
       return this.$store.getters['keys2fa/faKeys'];
-      /*
-      let keys = this.$store.getters['keys2fa/faKeys'];
-      let result = [];
-      for (let i=0; i < keys.length; i++) {
-        result[i] = {
-          secret: keys[i].secret,
-          issuer: keys[i].issuer,
-          name: keys[i].name,
-          token: generateToken(keys[i].secret).token
-        }
-      }
-      return (result)
-       */
     }
   },
   methods: {
