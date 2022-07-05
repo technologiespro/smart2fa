@@ -1,6 +1,7 @@
 <template>
   <div class="w-100">
-    <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top" style="position: fixed;background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
+    <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
+              style="position: fixed;background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
       <b-navbar-brand><img width="22px" src="/images/logo48.png"/> Smart2FA</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -8,7 +9,9 @@
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav>
-          <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('import_from_google')}}</span></b-nav-item>
+          <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white"
+                                                                       style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -20,36 +23,40 @@
           </b-nav-form>
           -->
 
-                      <b-nav-item-dropdown text="Lang" right style="text-shadow: 1px 1px 0.1em #333;">
-                        <b-dropdown-item href="#">RU</b-dropdown-item>
-                        <b-dropdown-item href="#">EN</b-dropdown-item>
-                      </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="Lang" right style="text-shadow: 1px 1px 0.1em #333;">
+            <b-dropdown-item href="#">RU</b-dropdown-item>
+            <b-dropdown-item href="#">EN</b-dropdown-item>
+          </b-nav-item-dropdown>
 
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
     <!--{{storedKeys}}-->
-    <div v-if="op === 'importKeys'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
-      <QrScanImport2fa style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
+    <div v-if="op === 'importKeys'"
+         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
+      <QrScanImport2fa
+          style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
     </div>
 
-    <div v-if="op === 'addKeyIn'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important; ">
+    <div v-if="op === 'addKeyIn'"
+         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important; ">
       <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; margin-top: 80px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
     </div>
 
-    <div v-if="op === 'addKeyQR'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
-      <AddNewKeyQr style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
+    <div v-if="op === 'addKeyQR'"
+         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
+      <AddNewKeyQr
+          style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
     </div>
-
 
 
     <div class="row">
@@ -60,29 +67,35 @@
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
-      <div v-for="(item) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa">
-        <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
-        <span class="font-weight-bold token">
-          {{item.token}}
+        <div v-for="(item) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa">
+          <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
+          <span class="font-weight-bold token">
+          {{ item.token }}
         </span>
-      </div>
-
-        <img @click="ddShow = !ddShow" width="42px" style="position: absolute; bottom: 10px; right: 10px; z-index: 1000;" src="images/add.png"/>
-        <div v-show="ddShow" style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
-          <b-nav vertical class="w-100">
-            <b-nav-item  @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">Сканировать QR</span></b-nav-item>
-            <b-nav-item  @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">Ввести новый ключ</span></b-nav-item>
-          </b-nav>
         </div>
 
+        <img @click="ddShow = !ddShow" width="42px"
+             style="position: absolute; bottom: 10px; right: 10px; z-index: 1000;" src="images/add.png"/>
+        <div v-show="ddShow"
+             style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
+          <b-nav vertical class="w-100">
+            <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">Сканировать QR</span>
+            </b-nav-item>
+            <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">Ввести новый ключ</span>
+            </b-nav-item>
+          </b-nav>
+        </div>
 
 
       </div>
 
     </div>
 
-    <div v-show="ddShow" class="text-center w-100" style="position: absolute; bottom: 10px; font-size: 18pt;background: #fff;">
-      <a target="_blank" href="https://smartholdem.io" class="small text-danger">Powered by <img width="24px" src="images/48x48.png"/> SmartHoldem</a>
+    <div v-show="ddShow" class="text-center w-100"
+         style="position: absolute; bottom: 10px; font-size: 18pt;background: #fff;">
+      <a target="_blank" href="https://smartholdem.io" class="small text-danger">Powered by <img width="24px"
+                                                                                                 src="images/48x48.png"/>
+        SmartHoldem</a>
     </div>
   </div>
 </template>
@@ -125,7 +138,7 @@ export default {
       fs.writeFile('smart2fa.json', this.storedKeys);
 
     },
-    async makeToast(variant = null, title= 'Success', message = '') {
+    async makeToast(variant = null, title = 'Success', message = '') {
       this.$bvToast.toast(message, {
         title: title,
         toaster: 'b-toaster-top-right',
