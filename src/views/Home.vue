@@ -1,12 +1,10 @@
 <template>
   <div class="w-100">
     <div v-if="op === 'importKeys'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">
-      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px;">
+      <QrScanImport2fa style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
-
-
-      <QrScanImport2fa style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;"/>
     </div>
     <div class="row">
 
@@ -23,16 +21,15 @@
         </span>
       </div>
 
-        <img width="48px" style="position: absolute; bottom: 10px; right: 10px;" src="/images/add.png"/>
-      </div>
+        <img @click="ddShow = !ddShow" width="48px" style="position: absolute; bottom: 10px; right: 10px;" src="/images/add.png"/>
+        <div v-show="ddShow" style="position: absolute; bottom: 60px;right: 10px; background: #bdc0c2;">
+          <b-nav vertical class="w-100">
+            <b-nav-item  @click="op = 'addKeyQR'; ddShow = false">Сканировать QR</b-nav-item>
+            <b-nav-item  @click="op = 'addKeyIn'; ddShow = false">Ввести новый ключ</b-nav-item>
+            <b-nav-item  @click="op = 'importKeys'; ddShow = false">Импортировать из Google 2FA</b-nav-item>
+          </b-nav>
+        </div>
 
-    </div>
-
-
-    <div class="container">
-      <div class="ml-auto mr-auto">
-        <b-button class="mr-1" @click="op = 'addKey'">Добавить</b-button>
-        <b-button @click="op = 'importKeys'">Импортировать</b-button>
       </div>
 
     </div>
@@ -55,6 +52,7 @@ export default {
   data() {
     return {
       op: 'home',
+      ddShow: false,
       importResult: [],
       allKeys: [],
       timer: null,
