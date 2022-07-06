@@ -10,10 +10,10 @@
 
         <b-navbar-nav>
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
-            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('import_from_google') }}</span>
+            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
           </b-nav-item>
           <b-nav-item @click="jsonDownload">
-            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('save_to_file')}}</span>
+            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('save_to_file') }}</span>
           </b-nav-item>
 
         </b-navbar-nav>
@@ -62,9 +62,7 @@
       </div>
     </div>
 
-
     <div class="row">
-
       <div class="container mb-2" style="margin-top:55px;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
           <!--<b-progress :value="((countdown * (seconds / totalSeconds * 100) / 100))" :max="countdown" animated></b-progress>-->
@@ -72,9 +70,14 @@
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
         <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
+             style="position: relative"
              @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
+          <div v-show = "submenu === idx" class="itemSubMenu">
+            <span class="badge badge-danger mr-3">DEL</span>
+            <span @click="submenu = null" class="badge badge-warning">CANCEL</span>
+          </div>
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
-          <div class="float-right pr-2">
+          <div @click="submenu = idx" class="float-right pr-2">
             <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
           </div>
           <span class="font-weight-bold token">
@@ -102,9 +105,9 @@
 
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
-      <a target="_blank" href="https://smartholdem.io" class="small text-danger">Powered by <img width="18px"
-                                                                                                 src="images/48x48.png"/>
-        SmartHoldem</a>
+      <a target="_blank" href="https://smartholdem.io" class="small text-danger">
+        Powered by <img width="18px" src="images/48x48.png"/> SmartHoldem
+      </a>
     </div>
   </div>
 </template>
@@ -135,6 +138,7 @@ export default {
       timerTimeout: null,
       screenWidth: 480,
       selectedItem: null,
+      submenu: null,
     }
   },
   computed: {
@@ -229,7 +233,18 @@ export default {
 </script>
 
 <style>
+.itemSubMenu {
+  z-index: 20000;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  background: rgba(44, 62, 80, 0.82);
+  padding: 12px;
+  border-radius: 4px;
+}
+
 .item-2fa {
+  top: 0;
   border-bottom: dashed 1px #76797c;
   padding-bottom: 4px;
   padding-top: 2px;
