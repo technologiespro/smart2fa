@@ -1,16 +1,17 @@
 # Smart2fa
 
-Alternative open source software for 2fa authorization, developed due to the fact that the main Google application for authorization has ceased to work properly.
+Alternative open source software for 2fa authorization.
 
 Main features v0.1.0
 
 - Import keys from Google 2FA APP
 - View clean data and keys
-- Export to Json file
+- Export in Json file
 - Downloading 2fa authorization tokens from sites via QR or by entering a code
 - Multilingual
 - Webcam support for scanning qr-codes
 - Desktop/Mobile
+- Generation of a single QR to export a RAW key to another device
 
 ![2fascreen](https://user-images.githubusercontent.com/9394904/177456280-e8dc11a7-7f81-43fe-baa4-9699ddd90aa4.png)
 
