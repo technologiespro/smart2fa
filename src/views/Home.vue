@@ -69,6 +69,8 @@
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
+
+        <!-- ITEMS -->
         <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
              style="position: relative"
              @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
@@ -82,10 +84,10 @@
             <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
           </div>
           <span class="font-weight-bold token">
-          {{ item.token }}
-        </span>
-
+            {{ item.token }}
+          </span>
         </div>
+        <!-- ITEMS END -->
 
         <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
         <div v-show="ddShow"
@@ -172,7 +174,7 @@ export default {
     },
 
     async itemSelect(idx) {
-
+      await this.doCopyText(this.allKeys[idx].token)
       this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
     },
     async makeToast(variant = null, title = 'Success', message = '') {

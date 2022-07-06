@@ -9,8 +9,10 @@ import store from './store';
 import i18n from './i18n';
 import eventBus from '@/plugins/event-bus'
 import Snotify, { SnotifyPosition} from 'vue-snotify';
+import VueClipboard from 'vue-clipboard2'
 
 Vue.config.productionTip = false;
+Vue.use(VueClipboard);
 Vue.mixin(mixins);
 Vue.prototype.$eventBus = eventBus;
 Vue.use(Snotify, {
