@@ -9,11 +9,13 @@
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav>
-          <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white"
-                                                                       style="text-shadow: 1px 1px 0.1em #333;">{{
-              $t('import_from_google')
-            }}</span>
+          <b-nav-item @click="op = 'importKeys'; ddShow = false">
+            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('import_from_google') }}</span>
           </b-nav-item>
+          <b-nav-item @click="jsonDownload">
+            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">Save to file</span>
+          </b-nav-item>
+
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -141,6 +143,16 @@ export default {
     }
   },
   methods: {
+    jsonDownload() {
+      let element = document.createElement('a');
+      let url = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.storedKeys));
+      element.setAttribute('href', url);
+      element.setAttribute('download', 'smart2fa.json');
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    },
     async setLang(locale) {
       await this.$store.dispatch('app/setLanguage', locale);
     },
@@ -148,11 +160,6 @@ export default {
     async itemSelect(idx) {
 
       this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
-    },
-    async saveToFile() {
-      const fs = require('fs');
-      fs.writeFile('smart2fa.json', this.storedKeys);
-
     },
     async makeToast(variant = null, title = 'Success', message = '') {
       this.$bvToast.toast(message, {
