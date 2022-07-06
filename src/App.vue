@@ -19,6 +19,11 @@
 //import {generateToken} from "node-2fa";
 
 export default {
+  computed: {
+    language() {
+      return this.$store.getters['app/language'];
+    }
+  },
   methods: {
 
     minimize: function () {
@@ -41,15 +46,14 @@ export default {
     }
   },
   async created() {
-    const browserLang =  navigator.language;
-
-    if (browserLang === 'ru-RU') {
+    if (navigator.language === 'ru') {
       this.$i18n.locale = 'ru'
     } else {
       this.$i18n.locale = 'en'
     }
     this.$store._vm.$on('vuex-persist:ready', async () => {
      //console.log(await this.$store.getters['keys2fa/faKeys'])
+      this.$i18n.locale = this.language;
 
     })
   }
