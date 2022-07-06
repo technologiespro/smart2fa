@@ -251,7 +251,14 @@ export default {
       this.op = 'home';
       await this.$store.dispatch('keys2fa/setKeys', data);
       await this.generateTokens();
-      await this.makeToast('success', 'Импорт', 'Добавлены ключи ' + data.length);
+
+      this.$snotify.success(this.$t('keys_added') + ' - ' + data.length, {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        position: 'leftBottom'
+      });
     });
   }
 }
