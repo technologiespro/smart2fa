@@ -10,7 +10,9 @@
 
         <b-navbar-nav>
           <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white"
-                                                                       style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
+                                                                       style="text-shadow: 1px 1px 0.1em #333;">{{
+              $t('import_from_google')
+            }}</span>
           </b-nav-item>
         </b-navbar-nav>
 
@@ -67,11 +69,16 @@
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
-        <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa" @click="selectedItem(idx)">
+        <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
+             @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
+          <div class="float-right pr-2">
+            <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
+          </div>
           <span class="font-weight-bold token">
           {{ item.token }}
         </span>
+
         </div>
 
         <img @click="ddShow = !ddShow" width="42px"
@@ -135,7 +142,8 @@ export default {
   },
   methods: {
     async itemSelect(idx) {
-      this.selectedItem = idx;
+
+      this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
     },
     async saveToFile() {
       const fs = require('fs');
@@ -216,12 +224,26 @@ export default {
   padding-top: 2px;
 }
 
-.item-2fa .active {
+.item-2fa:active {
   background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);
+  animation: blinker 1s linear;
+}
+
+.itemActive {
+  text-shadow: 1px 1px 0.06em rgba(246, 244, 97, 0.6);
+  background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d) !important;
+  border-bottom: 1px;
+  border-bottom: solid 1px #1371ce;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 
 .item-2fa:hover {
-  background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);
+  /*background: linear-gradient(-45deg, #fbbe8d 1%, #4eabf7 48%, #fbbe8d);*/
   cursor: pointer;
   border-bottom: 1px;
   border-bottom: solid 1px #1371ce;
