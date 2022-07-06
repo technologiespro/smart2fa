@@ -49,11 +49,19 @@ export default {
             }
             state.faKeys = importResult;
         },
+        ITEM_DEL(state, payload) {
+            let importResult = state.faKeys;
+            importResult.splice(payload, 1);
+            state.faKeys = importResult;
+        }
     },
 
     actions: {
         setKeys ({ commit }, value) {
             commit('SET_KEYS', value)
+        },
+        itemDel ({ commit }, value) {
+            commit('ITEM_DEL', value)
         },
     }
 }
