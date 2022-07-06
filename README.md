@@ -9,6 +9,7 @@ Main features v0.1.0
 - Export to Json file
 - Downloading 2fa authorization tokens from sites via QR or by entering a code
 - Multilingual
+- Webcam support for scanning qr-codes
 
 This is an early beta version, use at your own risk.
 
