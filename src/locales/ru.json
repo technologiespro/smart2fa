@@ -1,4 +1,5 @@
 {
   "lang": "Язык",
-  "import_from_google": "Импортировать из Гугл 2FA"
+  "import_from_google": "Импортировать из Гугл 2FA",
+  "save_to_file": "Сохранить все ключи в файл"
 }

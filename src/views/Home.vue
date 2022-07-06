@@ -13,7 +13,7 @@
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('import_from_google') }}</span>
           </b-nav-item>
           <b-nav-item @click="jsonDownload">
-            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">Save to file</span>
+            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{$t('save_to_file')}}</span>
           </b-nav-item>
 
         </b-navbar-nav>
