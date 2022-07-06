@@ -26,8 +26,8 @@
           -->
 
           <b-nav-item-dropdown :text="$t('lang')" right style="text-shadow: 1px 1px 0.1em #333;">
-            <b-dropdown-item>RU</b-dropdown-item>
-            <b-dropdown-item>EN</b-dropdown-item>
+            <b-dropdown-item @click="setLang('ru')">RU</b-dropdown-item>
+            <b-dropdown-item @click="setLang('en')">EN</b-dropdown-item>
           </b-nav-item-dropdown>
 
         </b-navbar-nav>
@@ -141,6 +141,10 @@ export default {
     }
   },
   methods: {
+    async setLang(locale) {
+      await this.$store.dispatch('app/setLanguage', locale);
+    },
+
     async itemSelect(idx) {
 
       this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
