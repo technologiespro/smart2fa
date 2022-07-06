@@ -8,14 +8,7 @@
 
 <script>
 //'use strict';
-document.addEventListener('deviceready', function() {
-  // uibuntu
-  navigator.getUserMedia({video: true, audio: false}, (localMediaStream) => {
-    var video = document.querySelector('video')
-    video.srcObject = localMediaStream
-    video.autoplay = true
-  }, (e) => {})
-
+document.addEventListener('deviceready', function () {
   // android
   cordova.plugins.diagnostic.requestCameraAuthorization({
     success: success,
@@ -25,11 +18,10 @@ document.addEventListener('deviceready', function() {
 
 
   navigator.mediaDevices.getUserMedia({video: true})
-      .then(function(stream) {
+      .then(function (stream) {
         document.getElementById('camera').srcObject = stream;
-      }).catch(function() {
+      }).catch(function () {
     alert('could not connect camera');
-
   });
 
 
@@ -37,8 +29,8 @@ document.addEventListener('deviceready', function() {
     alert('Camera permission is not turned on');
   }
 
-  function success( status ) {
-    if( !status.hasPermission ) error();
+  function success(status) {
+    if (!status.hasPermission) error();
   }
 });
 
@@ -67,13 +59,13 @@ export default {
         name: parsedTotp.label,
         period: parsedTotp.period || 30,
         secret: parsedTotp.secret.base32,
-        counter: { "low": 0, "high": 0, "unsigned": false }
+        counter: {"low": 0, "high": 0, "unsigned": false}
       }])
     },
     async onDecode(result) {
       await this.addKeyFromQr(result);
     },
-    async onInit (promise) {
+    async onInit(promise) {
       this.loading = true;
       try {
         await promise
