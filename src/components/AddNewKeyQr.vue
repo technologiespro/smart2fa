@@ -1,11 +1,13 @@
 <template>
-  <qrcode-stream @decode="onDecode" @init="onInit"/>
+  <qrcode-stream @decode="onDecode" @init="onInit">
+    <div class="loading-indicator" v-if="loading">
+      Loading...
+    </div>
+  </qrcode-stream>
 </template>
 
 <script>
-
-
-'use strict';
+//'use strict';
 document.addEventListener('deviceready', function() {
 
   cordova.plugins.diagnostic.requestCameraAuthorization({
@@ -14,13 +16,15 @@ document.addEventListener('deviceready', function() {
     externalStorage: false
   });
 
+  /*
   navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
         document.getElementById('camera').srcObject = stream;
       }).catch(function() {
-    console.log('could not connect stream');
+    alert('could not connect camera');
 
   });
+*/
 
   function error() {
     alert('Camera permission is not turned on');
@@ -41,6 +45,8 @@ export default {
     return {
       importResult: [],
       error: "",
+      loading: false,
+      destroyed: false
     }
   },
   components: {QrcodeStream},
@@ -60,7 +66,8 @@ export default {
     async onDecode(result) {
       await this.addKeyFromQr(result);
     },
-    async onInit(promise) {
+    async onInit (promise) {
+      this.loading = true;
       try {
         await promise
       } catch (error) {
@@ -77,12 +84,18 @@ export default {
         } else if (error.name === 'StreamApiNotSupportedError') {
           this.error = "ERROR: Stream API is not supported in this browser"
         }
+      } finally {
+        this.loading = false
       }
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style>
+.loading-indicator {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+}
 </style>
