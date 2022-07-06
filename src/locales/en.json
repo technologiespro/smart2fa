@@ -2,5 +2,6 @@
   "lang": "Language",
   "import_from_google": "Import from Google 2FA",
   "save_to_file": "Save all keys to file",
-  "copied": "Copied!"
+  "copied": "Token Copied!",
+  "powered": "Powered by"
 }

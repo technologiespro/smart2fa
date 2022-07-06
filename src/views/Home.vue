@@ -109,7 +109,7 @@
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
       <a target="_blank" href="https://smartholdem.io" class="small text-danger">
-        Powered by <img width="18px" src="images/48x48.png"/> SmartHoldem
+        {{$t('powered')}} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{this.currentVersion()}}
       </a>
     </div>
   </div>
