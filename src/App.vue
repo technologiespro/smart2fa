@@ -1,26 +1,13 @@
 <template>
   <div id="app">
-<!--
-    <div id="nav">
-      <span class="badge badge-info">{{allKeys.length}}</span> <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </div>
--->
     <router-view/>
-
-
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
-//import {generateToken} from "node-2fa";
 
 export default {
-  computed: {
-    language() {
-      return this.$store.getters['app/language'];
-    }
-  },
   methods: {
 
     minimize: function () {
@@ -38,9 +25,7 @@ export default {
         window.close()
       }
     },
-    reload: function () {
-    //  reload();
-    }
+
   },
   async created() {
     if (navigator.language === 'ru') {
@@ -50,8 +35,10 @@ export default {
     }
     this.$store._vm.$on('vuex-persist:ready', async () => {
      //console.log(await this.$store.getters['keys2fa/faKeys'])
-      this.$i18n.locale = this.language;
-
+      const storeLang = this.$store.getters['app/language'];
+      if (storeLang) {
+        this.$i18n.locale = storeLang;
+      }
     })
   }
 }

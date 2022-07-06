@@ -32,11 +32,11 @@ module.exports = {
   pluginOptions: {
     cordovaPath: 'src-cordova',
     i18n: {
+      lazy:true,
       locale: 'en',
       fallbackLocale: 'en',
       localeDir: 'locales',
-      enableInSFC: false,
-      enableBridge: undefined
+      enableInSFC: false
     },
     electronBuilder: {
       electronBuilder: {
