@@ -6,6 +6,7 @@
   "powered": "Powered by",
   "cancel": "Cancel",
   "keys_added": "Keys added",
+  "token_add_info_input": "This feature is for adding a new access token from a new site or application. Enter the proposed secret code, get an access token and confirm it on the added site.",
   "token_add_info_qr": "This feature is for adding a new access token from a new site or application. Scan the proposed QR code, get an access token and confirm it on the added site.",
   "google_migrate_info": "This feature is designed to quickly import access tokens from the Google Authenticator app. In the Google Authenticator app, click in the settings to transfer accounts - export accounts. Scan the Google Authenticator QR codes to transfer to Smart2FA."
 
