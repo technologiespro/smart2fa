@@ -44,6 +44,9 @@
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
+      <p>Данная функция предназначена для быстрого импорта токенов доступа из приложения Google Authenticator.</p>
+      <p>В приложении Google Authenticator нажмите в настройках перенести аккаунты  - экспорт аккаунтов.</p>
+      <p>Отсканируйте QR-коды Google Authenticator, для переноса в Smart2FA.</p>
     </div>
 
     <div v-if="op === 'addKeyIn'"

@@ -5,5 +5,6 @@
   "copied": "Код скопирован!",
   "powered": "Создано в",
   "cancel": "Отмена",
-  "keys_added": "Добавлены ключи"
+  "keys_added": "Добавлены ключи",
+  "google_migrate_info": "Данная функция предназначена для быстрого импорта токенов доступа из приложения Google Authenticator. В приложении Google Authenticator нажмите в настройках перенести аккаунты  - экспорт аккаунтов. Отсканируйте QR-коды Google Authenticator, для переноса в Smart2FA."
 }

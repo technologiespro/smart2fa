@@ -5,5 +5,7 @@
   "copied": "Token Copied!",
   "powered": "Powered by",
   "cancel": "Cancel",
-  "keys_added": "Keys added"
+  "keys_added": "Keys added",
+  "google_migrate_info": "This feature is designed to quickly import access tokens from the Google Authenticator app. In the Google Authenticator app, click in the settings to transfer accounts - export accounts. Scan the Google Authenticator QR codes to transfer to Smart2FA."
+
 }
