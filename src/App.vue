@@ -41,6 +41,13 @@ export default {
     }
   },
   async created() {
+    const browserLang =  navigator.language;
+
+    if (browserLang === 'ru-RU') {
+      this.$i18n.locale = 'ru'
+    } else {
+      this.$i18n.locale = 'en'
+    }
     this.$store._vm.$on('vuex-persist:ready', async () => {
      //console.log(await this.$store.getters['keys2fa/faKeys'])
 
