@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import 'mutationobserver-shim';
 import Vue from 'vue';
+import mixins from './mixins';
 import './plugins/bootstrap-vue';
 import App from './App.vue';
 import router from './router';
@@ -10,6 +11,7 @@ import eventBus from '@/plugins/event-bus'
 import Snotify, { SnotifyPosition} from 'vue-snotify';
 
 Vue.config.productionTip = false;
+Vue.mixin(mixins);
 Vue.prototype.$eventBus = eventBus;
 Vue.use(Snotify, {
   toast: {
