@@ -65,11 +65,12 @@
 
     <div v-if="op === 'itemRawData'"
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.93); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
-<p class="text-white">
-  {{itemRaw}}
-</p>
-
-
+      <p class="text-white">
+        {{ itemRaw }}
+      </p>
+      <p class="text-center">
+        <QrCode :options="{size:200}" :value="totpRaw" class="qr-raw-export"/>
+      </p>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
@@ -87,10 +88,10 @@
         <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
              style="position: relative"
              @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
-          <div v-show = "submenu === idx" class="itemSubMenu">
+          <div v-show="submenu === idx" class="itemSubMenu">
             <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
             <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
-            <span @click="submenu = null" class="badge badge-warning text-uppercase">{{$t('cancel')}}</span>
+            <span @click="submenu = null" class="badge badge-warning text-uppercase">{{ $t('cancel') }}</span>
           </div>
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
           <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
@@ -121,7 +122,7 @@
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
       <a target="_blank" href="https://smartholdem.io" class="small text-danger">
-        {{$t('powered')}} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{this.currentVersion()}}
+        {{ $t('powered') }} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{ this.currentVersion() }}
       </a>
     </div>
   </div>
@@ -132,6 +133,8 @@ import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
 import {generateToken} from "node-2fa";
+import * as OTPAuth from 'otpauth';
+import QrCode from '@/util/QRCode';
 
 export default {
   name: 'Home',
@@ -139,6 +142,7 @@ export default {
     QrScanImport2fa,
     AddNewKeyIn,
     AddNewKeyQr,
+    QrCode,
   },
   data() {
     return {
@@ -155,6 +159,7 @@ export default {
       selectedItem: null,
       submenu: null,
       itemRaw: null,
+      totpRaw: null,
     }
   },
   computed: {
@@ -166,6 +171,14 @@ export default {
     async itemRawData(idx) {
       this.op = 'itemRawData';
       this.itemRaw = this.storedKeys[idx];
+      this.totpRaw = (new OTPAuth.TOTP({
+        issuer: this.storedKeys[idx].issuer,
+        label: this.storedKeys[idx].name,
+        algorithm: this.storedKeys[idx].algorithm,
+        digits: this.storedKeys[idx].digits,
+        period: this.storedKeys[idx].period,
+        secret: this.storedKeys[idx].secret,
+      })).toString();
     },
     async itemDel(idx) {
       this.submenu = null;
@@ -266,14 +279,19 @@ export default {
 
 <style>
 .btnBotAdd {
-  position: absolute; bottom: 10px; right: 10px; z-index: 1000;
-  width:42px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: 42px;
   height: 42px;
 }
+
 .btnBotAdd:hover {
-  cursor:pointer;
+  cursor: pointer;
   opacity: 0.9;
 }
+
 .itemSubMenu {
   z-index: 200000;
   position: absolute;
