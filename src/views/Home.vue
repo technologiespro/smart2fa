@@ -44,7 +44,7 @@
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
-      <p>{{$t('google_migrate_info')}}</p>
+      <p class="text-white">{{$t('google_migrate_info')}}</p>
     </div>
 
     <div v-if="op === 'addKeyIn'"
@@ -53,7 +53,7 @@
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
-      <p>{{$t('token_add_info_input')}}</p>
+      <p class="text-white">{{$t('token_add_info_input')}}</p>
     </div>
 
     <div v-if="op === 'addKeyQR'"
@@ -63,7 +63,7 @@
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
-      <p>{{$t('token_add_info_qr')}}</p>
+      <p class="text-white">{{$t('token_add_info_qr')}}</p>
     </div>
 
     <div v-if="op === 'itemRawData'"
