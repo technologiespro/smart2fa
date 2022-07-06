@@ -74,10 +74,11 @@
              @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
           <div v-show = "submenu === idx" class="itemSubMenu">
             <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
+            <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
             <span @click="submenu = null" class="badge badge-warning">CANCEL</span>
           </div>
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
-          <div @click="submenu = idx" class="float-right pr-2">
+          <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
             <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
           </div>
           <span class="font-weight-bold token">
@@ -86,8 +87,7 @@
 
         </div>
 
-        <img @click="ddShow = !ddShow" width="42px"
-             style="position: absolute; bottom: 10px; right: 10px; z-index: 1000;" src="images/add.png"/>
+        <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
         <div v-show="ddShow"
              style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
           <b-nav vertical class="w-100">
@@ -139,6 +139,7 @@ export default {
       screenWidth: 480,
       selectedItem: null,
       submenu: null,
+      itemRaw: null,
     }
   },
   computed: {
@@ -147,6 +148,10 @@ export default {
     }
   },
   methods: {
+    async itemRawData(idx) {
+      this.op = 'itemRawData';
+      this.itemRaw = this.storedKeys[idx];
+    },
     async itemDel(idx) {
       this.submenu = null;
       await this.$store.dispatch('keys2fa/itemDel', idx);
@@ -238,11 +243,20 @@ export default {
 </script>
 
 <style>
+.btnBotAdd {
+  position: absolute; bottom: 10px; right: 10px; z-index: 1000;
+  width:42px;
+  height: 42px;
+}
+.btnBotAdd:hover {
+  cursor:pointer;
+  opacity: 0.9;
+}
 .itemSubMenu {
-  z-index: 20000;
+  z-index: 100000;
   position: absolute;
   top: 6px;
-  right: 10px;
+  right: 24px;
   background: rgba(44, 62, 80, 0.82);
   padding: 12px;
   border-radius: 4px;
