@@ -21,7 +21,7 @@ document.addEventListener('deviceready', function () {
       .then(function (stream) {
         document.getElementById('camera').srcObject = stream;
       }).catch(function () {
-    alert('could not connect camera');
+    //alert('could not connect camera');
   });
 
 
