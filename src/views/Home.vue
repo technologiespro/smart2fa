@@ -63,7 +63,7 @@
     </div>
 
     <div class="row">
-      <div class="container mb-2" style="margin-top:55px;">
+      <div class="container mb-2" style="margin-top:55px;padding-bottom: 38px;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
           <!--<b-progress :value="((countdown * (seconds / totalSeconds * 100) / 100))" :max="countdown" animated></b-progress>-->
           <span style="float: right;height: 5px;background: #1fab1a;"
@@ -73,7 +73,7 @@
              style="position: relative"
              @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
           <div v-show = "submenu === idx" class="itemSubMenu">
-            <span class="badge badge-danger mr-3">DEL</span>
+            <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
             <span @click="submenu = null" class="badge badge-warning">CANCEL</span>
           </div>
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
@@ -147,6 +147,11 @@ export default {
     }
   },
   methods: {
+    async itemDel(idx) {
+      this.submenu = null;
+      await this.$store.dispatch('keys2fa/itemDel', idx);
+      await this.generateTokens();
+    },
     jsonDownload() {
       let element = document.createElement('a');
       let url = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.storedKeys));
