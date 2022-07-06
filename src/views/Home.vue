@@ -62,6 +62,7 @@
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
       </div>
+      <p>{{$t('token_add_info')}}</p>
     </div>
 
     <div v-if="op === 'itemRawData'"
