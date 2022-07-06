@@ -12,6 +12,8 @@ Main features v0.1.0
 - Webcam support for scanning qr-codes
 - Desktop/Mobile
 
+![2fascreen](https://user-images.githubusercontent.com/9394904/177456280-e8dc11a7-7f81-43fe-baa4-9699ddd90aa4.png)
+
 This is an early beta version, use at your own risk.
 
 For application improvements, write to https://t.me/smartholdem
