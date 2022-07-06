@@ -90,7 +90,7 @@
           <div v-show = "submenu === idx" class="itemSubMenu">
             <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
             <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
-            <span @click="submenu = null" class="badge badge-warning">CANCEL</span>
+            <span @click="submenu = null" class="badge badge-warning text-uppercase">{{$t('cancel')}}</span>
           </div>
           <span v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> {{ item.name }}<br/>
           <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
