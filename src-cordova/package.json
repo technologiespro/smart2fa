@@ -2,7 +2,7 @@
   "name": "io.smartholdem.fa",
   "displayName": "Smart2FA",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "2FA APP",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,14 +10,14 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "TechnoL0g",
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^10.1.2",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-camera": "^6.0.0",
     "cordova-plugin-splashscreen": "^6.0.1",
-    "cordova-plugin-whitelist": "^1.3.4"
+    "cordova.plugins.diagnostic": "^6.1.1"
   },
   "cordova": {
     "platforms": [
@@ -29,7 +29,10 @@
       "cordova-plugin-camera": {
         "ANDROIDX_CORE_VERSION": "1.6.+"
       },
-      "cordova-plugin-whitelist": {}
+      "cordova.plugins.diagnostic": {
+        "ANDROIDX_VERSION": "1.0.0",
+        "ANDROIDX_APPCOMPAT_VERSION": "1.3.1"
+      }
     }
   }
 }
