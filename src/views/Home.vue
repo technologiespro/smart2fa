@@ -35,6 +35,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <vue-snotify></vue-snotify>
     <!--{{storedKeys}}-->
     <div v-if="op === 'importKeys'"
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; ">

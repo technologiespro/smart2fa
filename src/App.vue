@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div>
-
-    </div>
 <!--
     <div id="nav">
       <span class="badge badge-info">{{allKeys.length}}</span> <router-link to="/">Home</router-link>
@@ -91,4 +88,5 @@ body, html {
   width: 100% !important;
   height: 100vh;
 }
+@import "../node_modules/vue-snotify/styles/material.css";
 </style>

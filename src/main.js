@@ -8,7 +8,7 @@ import router from './router';
 import store from './store';
 import i18n from './i18n';
 import eventBus from '@/plugins/event-bus'
-import Snotify, { SnotifyPosition} from 'vue-snotify';
+import Snotify, { SnotifyPosition } from 'vue-snotify'
 import VueClipboard from 'vue-clipboard2'
 
 Vue.config.productionTip = false;
