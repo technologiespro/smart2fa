@@ -3,5 +3,6 @@
   "import_from_google": "Import from Google 2FA",
   "save_to_file": "Save all keys to file",
   "copied": "Token Copied!",
-  "powered": "Powered by"
+  "powered": "Powered by",
+  "cancel": "Cancel"
 }

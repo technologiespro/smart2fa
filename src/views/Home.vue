@@ -63,6 +63,18 @@
       </div>
     </div>
 
+    <div v-if="op === 'itemRawData'"
+         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.93); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
+<p class="text-white">
+  {{itemRaw}}
+</p>
+
+
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
+        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+      </div>
+    </div>
+
     <div class="row">
       <div class="container mb-2" style="margin-top:55px;padding-bottom: 38px;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
@@ -256,7 +268,7 @@ export default {
   opacity: 0.9;
 }
 .itemSubMenu {
-  z-index: 100000;
+  z-index: 200000;
   position: absolute;
   top: 6px;
   right: 24px;
@@ -266,6 +278,7 @@ export default {
 }
 
 .item-2fa {
+  z-index: 0;
   top: 0;
   border-bottom: dashed 1px #76797c;
   padding-bottom: 4px;

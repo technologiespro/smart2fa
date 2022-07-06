@@ -49,6 +49,7 @@ export default {
         name: parsedTotp.label,
         period: parsedTotp.period || 30,
         secret: parsedTotp.secret.base32,
+        counter: { "low": 0, "high": 0, "unsigned": false }
       }])
     },
     async onDecode(result) {
