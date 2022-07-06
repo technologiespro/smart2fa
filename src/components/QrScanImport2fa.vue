@@ -3,81 +3,35 @@
 </template>
 
 <script>
+
+
 'use strict';
-/*
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-  console.log(navigator.camera);
-}
- */
-
 document.addEventListener('deviceready', function() {
-  /*
-  let permissions = cordova.plugins.permissions;
-  permissions.requestPermission(permissions.CAMERA, success, error);
 
-   */
+  cordova.plugins.diagnostic.requestCameraAuthorization({
+    success: success,
+    error: error,
+    externalStorage: false
+  });
 
-
-  /*
-  navigator.permissions.query({name: 'camera'})
-      .then((permissionObj) => {
-        console.log(permissionObj.state);
-      })
-      .catch((error) => {
-        console.log('Got error :', error);
-      })
-
-   */
-  /*
-  navigator.getUserMedia (
-      // constraints
-      {
-        video: true,
-        audio: true
-      },
-
-      // successCallback
-      function(localMediaStream) {
-        var video = document.querySelector('video');
-        video.src = window.URL.createObjectURL(localMediaStream);
-        video.onloadedmetadata = function(e) {
-          // Do something with the video here.
-        };
-      },
-
-      // errorCallback
-  );
-
-   */
-
-  /*
- var now = Date.now();
- navigator.mediaDevices.getUserMedia({audio: false, video: true})
-     .then(function(stream) {
-       console.log('Got stream, time diff :', Date.now() - now);
-     })
-     .catch(function(err) {
-       console.log('GUM failed with error, time diff: ', Date.now() - now);
-     });
-
-
-  */
   navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
         document.getElementById('camera').srcObject = stream;
       }).catch(function() {
-    alert('could not connect stream');
+    console.log('could not connect stream');
+
   });
 
   function error() {
-    console.warn('Camera permission is not turned on');
+    alert('Camera permission is not turned on');
   }
 
   function success( status ) {
     if( !status.hasPermission ) error();
   }
 });
+
+
 
 import parser from "otpauth-migration-parser";
 import {QrcodeStream} from 'vue-qrcode-reader'

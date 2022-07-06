@@ -3,27 +3,32 @@
 </template>
 
 <script>
-'use strict';
-document.addEventListener('deviceready', function () {
 
-  let permissions = cordova.plugins.permissions;
-  permissions.requestPermission(permissions.CAMERA, success, error);
+
+'use strict';
+document.addEventListener('deviceready', function() {
+
+  cordova.plugins.diagnostic.requestCameraAuthorization({
+    success: success,
+    error: error,
+    externalStorage: false
+  });
 
   navigator.mediaDevices.getUserMedia({video: true})
-      .then(function (stream) {
+      .then(function(stream) {
         document.getElementById('camera').srcObject = stream;
-      }).catch(function () {
-    alert('could not connect stream');
+      }).catch(function() {
+    console.log('could not connect stream');
+
   });
 
   function error() {
-    console.warn('Camera permission is not turned on');
+    alert('Camera permission is not turned on');
   }
 
-  function success(status) {
-    if (!status.hasPermission) error();
+  function success( status ) {
+    if( !status.hasPermission ) error();
   }
-
 });
 
 import {QrcodeStream} from 'vue-qrcode-reader'
