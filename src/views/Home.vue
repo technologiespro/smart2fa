@@ -3,7 +3,9 @@
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
       <b-navbar-brand><img width="24px" src="images/logo48.png"/> Smart2FA
-        <span class="badge badge-success" style="border: solid 1px rgba(35,59,93,0.76);">{{(seconds < 10 ? '0' + seconds : seconds)}}</span></b-navbar-brand>
+        <span class="badge badge-success"
+              style="border: solid 1px rgba(35,59,93,0.76);">{{ (seconds < 10 ? '0' + seconds : seconds) }}</span>
+      </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
 
@@ -117,7 +119,6 @@
         <!-- ITEMS END -->
 
 
-
       </div>
 
     </div>
@@ -147,7 +148,7 @@
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
-import {generateToken} from "node-2fa";
+import { generateToken } from 'node-2fa';
 import * as OTPAuth from 'otpauth';
 import QrCode from '@/util/QRCode';
 
@@ -161,7 +162,6 @@ export default {
   },
   data() {
     return {
-      isElectron: process.env.IS_ELECTRON,
       op: 'home',
       ddShow: false,
       importResult: [],
@@ -276,7 +276,7 @@ export default {
       let tm = Date.now();
       let date = new Date(tm)
       this.currentTime = 60 - date.getSeconds();
-      this.currentTime > 30 ? this.currentTime =  this.currentTime - 30 : this.currentTime;
+      this.currentTime > 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
       this.seconds = this.currentTime;
     }
 
@@ -347,7 +347,7 @@ export default {
 
 .itemActive {
   /* text-shadow: 1px 1px 0.06em rgba(246, 244, 97, 0.6);*/
-  background: linear-gradient(-45deg,  #9aebef 20%, #ffffff) !important;
+  background: linear-gradient(-45deg, #9aebef 20%, #ffffff) !important;
   border-bottom: 1px;
   border-bottom: solid 1px #1371ce;
 }

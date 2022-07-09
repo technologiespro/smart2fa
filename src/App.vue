@@ -8,12 +8,6 @@
 <script>
 
 export default {
-  data() {
-    return {}
-  },
-  components: {
-
-  },
   methods: {},
   async created() {
     if (navigator.language === 'ru') {
