@@ -42,7 +42,7 @@
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
       <QrScanImport2fa
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
-      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 100px;">
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 125px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('google_migrate_info') }}</p>
@@ -61,7 +61,7 @@
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important;z-index: 200000; ">
       <AddNewKeyQr
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
-      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 125px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('token_add_info_qr') }}</p>
@@ -177,6 +177,7 @@ export default {
       itemRaw: null,
       totpRaw: null,
       currentTime: 0,
+      dateSeconds: 0,
     }
   },
   computed: {
@@ -256,7 +257,7 @@ export default {
 
       this.timer = setInterval(async () => {
         this.seconds = this.seconds - 1;
-        if (this.seconds === 0) {
+        if (this.seconds < 0) {
           this.seconds = this.totalSeconds;
           await this.generateTokens();
         }
@@ -273,11 +274,11 @@ export default {
     },
 
     async timeSync() {
-      let tm = Date.now();
-      let date = new Date(tm)
-      this.currentTime = 60 - date.getSeconds();
-      this.currentTime > 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
-      this.seconds = this.currentTime;
+      let date = new Date(Date.now());
+      this.dateSeconds = date.getUTCSeconds();
+      this.currentTime = 60 - this.dateSeconds;
+      this.currentTime >= 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
+      this.seconds = this.currentTime + 5;
     }
 
   },

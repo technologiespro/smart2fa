@@ -1,9 +1,17 @@
 <template>
-  <qrcode-stream @decode="onDecode" @init="onInit">
-    <div class="loading-indicator" v-if="loading">
-      Loading...
+  <div>
+    <qrcode-stream @decode="onDecode" @init="onInit">
+      <div class="loading-indicator" v-if="loading">
+        Loading...
+      </div>
+    </qrcode-stream>
+    <div class="mb-3 position-relative">
+      <p class="text-center mt-2 text-white">{{$t('or_file_import')}}</p>
+      <qrcode-capture @decode="onDecode" :capture="false"/>
     </div>
-  </qrcode-stream>
+    <hr/>
+  </div>
+
 </template>
 
 <script>
@@ -32,7 +40,7 @@ document.addEventListener('deviceready', function () {
   }
 });
 
-import {QrcodeStream} from 'vue-qrcode-reader'
+import {QrcodeStream, QrcodeCapture} from 'vue-qrcode-reader';
 import eventBus from '@/plugins/event-bus';
 import * as OTPAuth from 'otpauth';
 
@@ -46,7 +54,7 @@ export default {
       destroyed: false
     }
   },
-  components: {QrcodeStream},
+  components: {QrcodeStream, QrcodeCapture},
   methods: {
     async addKeyFromQr(dataUri) {
       const parsedTotp = OTPAuth.URI.parse(dataUri);
