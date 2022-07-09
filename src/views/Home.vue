@@ -135,7 +135,7 @@
 
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
-      <a target="_blank" href="https://smartholdem.io" class="small text-dark">
+      <a ref="aUrl" target="_blank" href="https://smartholdem.io" class="small text-dark">
         {{ $t('powered') }} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{ currentVersion() }}
       </a>
     </div>
@@ -149,6 +149,11 @@ import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
 import {generateToken} from "node-2fa";
 import * as OTPAuth from 'otpauth';
 import QrCode from '@/util/QRCode';
+
+if (process.env.IS_ELECTRON) {
+ // let shell = require('electron').shell;
+ // shell.openExternal('https://smartholdem.io')
+}
 
 export default {
   name: 'Home',
@@ -311,8 +316,8 @@ export default {
   bottom: 10px;
   right: 10px;
   z-index: 1000;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
 }
 
 .btnBotAdd:hover {
@@ -365,7 +370,7 @@ export default {
 
 .token {
   font-size: 18pt;
-  color: #233b5d;
+  color: #224191;
   /*text-shadow: 1px 1px 0.06em rgba(226, 246, 97, 0.6);*/
   /*
   animation: color-change 32s infinite;

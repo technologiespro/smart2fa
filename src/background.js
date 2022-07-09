@@ -23,9 +23,10 @@ async function createWindow() {
     maxHeight: 780,
     minWidth: 400,
     minHeight: 780,
-    center: true,
     autoHideMenuBar: true,
-    //autoHideMenuBar: true,
+    frame: false,
+    kiosk: false,
+    center: true,
     webPreferences: {
       webSecurity: false,
       allowRunningInsecureContent: true,
