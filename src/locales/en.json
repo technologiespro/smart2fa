@@ -1,5 +1,6 @@
 {
   "lang": "Language",
+  "qr_scan": "Scan QR",
   "import_from_google": "Import from Google Authenticator",
   "save_to_file": "Save all keys in file",
   "copied": "Token Copied!",

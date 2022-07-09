@@ -1,11 +1,9 @@
 <template>
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
-              style="position: fixed;background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
+              style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
       <b-navbar-brand><img width="22px" src="images/logo48.png"/> Smart2FA</b-navbar-brand>
-
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav>
@@ -27,7 +25,7 @@
           </b-nav-form>
           -->
 
-          <b-nav-item-dropdown :text="$t('lang')" right style="text-shadow: 1px 1px 0.1em #333;">
+          <b-nav-item-dropdown :text="$t('lang')" right class="text-white">
             <b-dropdown-item @click="setLang('ru')">RU</b-dropdown-item>
             <b-dropdown-item @click="setLang('en')">EN</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -110,7 +108,7 @@
         <div v-show="ddShow"
              style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
           <b-nav vertical class="w-100">
-            <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">Сканировать QR</span>
+            <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{$t('qr_scan')}}</span>
             </b-nav-item>
             <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">Ввести новый ключ</span>
             </b-nav-item>

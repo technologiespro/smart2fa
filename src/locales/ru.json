@@ -1,5 +1,6 @@
 {
   "lang": "Язык",
+  "qr_scan": "Сканировать QR",
   "import_from_google": "Импорт из Google Authenticator",
   "save_to_file": "Сохранить все ключи в файл",
   "copied": "Код скопирован!",

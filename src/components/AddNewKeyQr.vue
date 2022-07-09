@@ -16,14 +16,12 @@ document.addEventListener('deviceready', function () {
     externalStorage: false
   });
 
-
   navigator.mediaDevices.getUserMedia({video: true})
       .then(function (stream) {
         document.getElementById('camera').srcObject = stream;
       }).catch(function () {
     //alert('could not connect camera');
   });
-
 
   function error() {
     alert('Camera permission is not turned on');
