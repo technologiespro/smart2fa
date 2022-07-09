@@ -174,6 +174,7 @@ export default {
       submenu: null,
       itemRaw: null,
       totpRaw: null,
+      currentTime: 0,
     }
   },
   computed: {
@@ -249,6 +250,7 @@ export default {
       await this.regenerateTokens();
 
       this.seconds = this.totalSeconds;
+      await this.timeSync(); // синхронизация секунд с таймером
 
       this.timer = setInterval(async () => {
         this.seconds = this.seconds - 1;
@@ -267,6 +269,14 @@ export default {
        */
 
     },
+
+    async timeSync() {
+      let tm = Date.now();
+      let date = new Date(tm)
+      this.currentTime = 60 - date.getSeconds();
+      this.currentTime > 30 ? this.currentTime =  this.currentTime - 30 : this.currentTime;
+      this.seconds = this.currentTime;
+    }
 
   },
   async created() {
