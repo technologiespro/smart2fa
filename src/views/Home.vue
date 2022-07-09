@@ -2,7 +2,7 @@
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
-      <b-navbar-brand><img width="22px" src="images/logo48.png"/> Smart2FA <span class="badge badge-dark">{{seconds}}</span></b-navbar-brand>
+      <b-navbar-brand><img width="22px" src="images/logo48.png"/> Smart2FA <span class="badge badge-info">{{(seconds < 10 ? '0' + seconds : seconds)}}</span></b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
 
