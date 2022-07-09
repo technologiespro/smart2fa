@@ -1,2 +1,10 @@
-v0.1.1
+v0.1.0
 - add time sync
+- Import keys from Google 2FA APP 
+- View clean data and keys 
+- Export in Json file 
+- Downloading 2fa authorization tokens from sites via QR or by entering a code 
+- Multilingual 
+- Webcam support for scanning qr-codes 
+- Desktop/Mobile 
+- Generation of a single QR to export a RAW key to another device
