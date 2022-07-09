@@ -10,22 +10,6 @@
 export default {
   methods: {
 
-    minimize: function () {
-        if (process.env.IS_ELECTRON) {
-          const electron = require('electron');
-          const window = electron.remote.getCurrentWindow();
-          window.minimize()
-        }
-
-    },
-    close: function () {
-      if (process.env.IS_ELECTRON) {
-        const electron = require('electron');
-        const window = electron.remote.getCurrentWindow();
-        window.close()
-      }
-    },
-
   },
   async created() {
     if (navigator.language === 'ru') {
