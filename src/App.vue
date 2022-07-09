@@ -8,9 +8,13 @@
 <script>
 
 export default {
-  methods: {
+  data() {
+    return {}
+  },
+  components: {
 
   },
+  methods: {},
   async created() {
     if (navigator.language === 'ru') {
       this.$i18n.locale = 'ru'
@@ -18,7 +22,7 @@ export default {
       this.$i18n.locale = 'en'
     }
     this.$store._vm.$on('vuex-persist:ready', async () => {
-     //console.log(await this.$store.getters['keys2fa/faKeys'])
+      //console.log(await this.$store.getters['keys2fa/faKeys'])
       const storeLang = this.$store.getters['app/language'];
       if (storeLang) {
         this.$i18n.locale = storeLang;
@@ -37,5 +41,6 @@ export default {
   width: 100% !important;
   height: 100vh;
 }
+
 @import "../node_modules/vue-snotify/styles/material.css";
 </style>

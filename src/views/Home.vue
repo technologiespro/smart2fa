@@ -150,11 +150,6 @@ import {generateToken} from "node-2fa";
 import * as OTPAuth from 'otpauth';
 import QrCode from '@/util/QRCode';
 
-if (process.env.IS_ELECTRON) {
- // let shell = require('electron').shell;
- // shell.openExternal('https://smartholdem.io')
-}
-
 export default {
   name: 'Home',
   components: {
@@ -165,6 +160,7 @@ export default {
   },
   data() {
     return {
+      isElectron: process.env.IS_ELECTRON,
       op: 'home',
       ddShow: false,
       importResult: [],
