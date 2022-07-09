@@ -35,7 +35,8 @@ export default {
             algorithm: 'sha1',
             digits: 6,
             type: 'totp',
-            counter: 0,
+            period: 30,
+            counter: { "low": 0, "high": 0, "unsigned": false }
           }
         ]);
       }
