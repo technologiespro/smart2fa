@@ -2,7 +2,8 @@
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
-      <b-navbar-brand><img width="22px" src="images/logo48.png"/> Smart2FA <span class="badge badge-info" style="border: solid 1px rgba(35,59,93,0.76);">{{(seconds < 10 ? '0' + seconds : seconds)}}</span></b-navbar-brand>
+      <b-navbar-brand><img width="24px" src="images/logo48.png"/> Smart2FA
+        <span class="badge badge-success" style="border: solid 1px rgba(35,59,93,0.76);">{{(seconds < 10 ? '0' + seconds : seconds)}}</span></b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
 
@@ -40,7 +41,7 @@
       <QrScanImport2fa
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
-        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('google_migrate_info') }}</p>
     </div>
@@ -49,7 +50,7 @@
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
       <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; margin-top: 80px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
-        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('token_add_info_input') }}</p>
     </div>
@@ -59,7 +60,7 @@
       <AddNewKeyQr
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
-        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('token_add_info_qr') }}</p>
     </div>
@@ -73,7 +74,7 @@
         <QrCode :options="{size:200}" :value="totpRaw" class="qr-raw-export"/>
       </p>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
-        <b-button @click="op = 'home'" :pill="true" variant="info">X</b-button>
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
     </div>
 
@@ -88,7 +89,7 @@
         </div>
 
         <!-- ITEMS -->
-        <div style="margin-top:10px;">
+        <div style="margin-top:5px;">
           <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
                style="position: relative"
                @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
@@ -123,7 +124,7 @@
 
     <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
     <div v-show="ddShow"
-         style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #9510b2 1%, #4eabf7 48%, #fbbe8d);">
+         style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
       <b-nav vertical class="w-100">
         <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span>
         </b-nav-item>
@@ -346,7 +347,7 @@ export default {
 
 .itemActive {
   /* text-shadow: 1px 1px 0.06em rgba(246, 244, 97, 0.6);*/
-  background: linear-gradient(-45deg,  #9aebef 48%, #e5f0fe) !important;
+  background: linear-gradient(-45deg,  #9aebef 20%, #ffffff) !important;
   border-bottom: 1px;
   border-bottom: solid 1px #1371ce;
 }
