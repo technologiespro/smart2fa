@@ -1,14 +1,25 @@
 <template>
-  <qrcode-stream @decode="onDecode" @init="onInit">
-    <div class="loading-indicator" v-if="loading">
-      Loading...
+  <div>
+    <qrcode-stream @decode="onDecode" @init="onInit">
+      <div class="loading-indicator" v-if="loading">
+        Loading...
+      </div>
+    </qrcode-stream>
+
+    <div class="mb-3 position-relative">
+    <p class="text-center mt-2 text-white">{{$t('or_file_import')}}</p>
+    <qrcode-capture @decode="onDecode" :capture="false"/>
     </div>
-  </qrcode-stream>
+    <hr/>
+  </div>
+
 </template>
 
 <script>
 //'use strict';
-document.addEventListener('deviceready', function() {
+
+
+document.addEventListener('deviceready', function () {
 
   // android
   cordova.plugins.diagnostic.requestCameraAuthorization({
@@ -19,9 +30,9 @@ document.addEventListener('deviceready', function() {
 
   //win
   navigator.mediaDevices.getUserMedia({video: true})
-      .then(function(stream) {
+      .then(function (stream) {
         document.getElementById('camera').srcObject = stream;
-      }).catch(function() {
+      }).catch(function () {
     //alert('could not connect camera');
 
   });
@@ -31,16 +42,14 @@ document.addEventListener('deviceready', function() {
     alert('Camera permission is not turned on');
   }
 
-  function success( status ) {
-    if( !status.hasPermission ) error();
+  function success(status) {
+    if (!status.hasPermission) error();
   }
 });
 
 
-
-
 import parser from "otpauth-migration-parser";
-import {QrcodeStream} from 'vue-qrcode-reader'
+import {QrcodeStream, QrcodeCapture} from 'vue-qrcode-reader'
 import eventBus from '@/plugins/event-bus';
 
 export default {
@@ -53,7 +62,7 @@ export default {
       destroyed: false
     }
   },
-  components: { QrcodeStream },
+  components: {QrcodeStream, QrcodeCapture},
   methods: {
     async migrationImport(dataUri) {
       const parsedDataList = await parser(dataUri);
@@ -74,15 +83,15 @@ export default {
       }
       await eventBus.emit('qr:importKeys', result)
     },
-    async reload () {
+    async reload() {
       this.destroyed = true
       await this.$nextTick()
       this.destroyed = false
     },
-    async onDecode (result) {
+    async onDecode(result) {
       await this.migrationImport(result);
     },
-    async onInit (promise) {
+    async onInit(promise) {
       this.loading = true;
       try {
         await promise

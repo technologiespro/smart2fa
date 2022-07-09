@@ -1,5 +1,6 @@
 {
   "lang": "Language",
+  "or_file_import": "or import QR from file",
   "enter_key": "Enter Key",
   "qr_scan": "Scan QR",
   "import_from_google": "Import from Google Authenticator",

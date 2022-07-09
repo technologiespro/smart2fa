@@ -1,6 +1,6 @@
 # Smart 2FA
 
-Alternative open source software for 2fa authorization.
+Alternative open source software for 2FA authorization.
 
 Main features v0.1.0
 
