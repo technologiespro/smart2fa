@@ -2,6 +2,7 @@
   "lang": "Language",
   "btn_add": "Add",
   "account_name": "Account Name",
+  "enter_secret_key": "Enter secret key",
   "or_file_import": "or import QR from file",
   "enter_key": "Enter Key",
   "qr_scan": "Scan QR",
