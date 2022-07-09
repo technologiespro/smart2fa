@@ -11,6 +11,9 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <plugin name="cordova.plugins.diagnostic" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <plugin name="cordova-plugin-vibration" spec="^3.1.1" />
     <preference name="Camera" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />

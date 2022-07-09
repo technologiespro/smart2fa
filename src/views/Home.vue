@@ -145,6 +145,11 @@
 </template>
 
 <script>
+
+function vbr(ms = 250) {
+  navigator.vibrate(ms);
+}
+
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
@@ -299,6 +304,7 @@ export default {
         pauseOnHover: true,
         position: 'leftBottom'
       });
+      vbr();
     });
   }
 }
