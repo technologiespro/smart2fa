@@ -174,9 +174,6 @@
 </template>
 
 <script>
-
-//import CryptoJS from "crypto-js";
-
 function vbr(ms = 250) {
   navigator.vibrate(ms);
 }
@@ -302,19 +299,9 @@ export default {
     },
     /** Save To File **/
 
-    jsonDownload() {
+    async jsonDownload() {
       let element = document.createElement('a');
-      //const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys),  CryptoJS.SHA384(this.password).toString()).toString();
-      const ciphertext = this.$store.dispatch('keys2fa/encryptKeys', {
-        password: this.password,
-        keys: this.storedKeys
-      })
-
-      const data = {
-        encrypted: 'AES',
-        data: ciphertext,
-      };
-
+      const data = await this.$store.dispatch('keys2fa/encryptKeys', this.password)
       let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
       element.setAttribute('href', url);
       element.setAttribute('download', 'smart2fa.json');
