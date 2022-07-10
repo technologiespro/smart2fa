@@ -18,4 +18,4 @@ Main features v0.1.0
 
 This is an early beta version, use at your own risk.
 
-For application improvements, write to https://t.me/smartholdem
+For application improvements, write to https://community.smartholdem.io/
