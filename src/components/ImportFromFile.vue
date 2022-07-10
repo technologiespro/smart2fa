@@ -15,6 +15,7 @@
         <b-button class="w-100" :disabled="!secret" @click="loadData" variant="primary">{{$t('btn_add')}}</b-button>
       </div>
     </div>
+    <p class="text-white p-2">{{$t('import_from_json_info')}}</p>
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -29,9 +30,14 @@ export default {
       secret: '',
       file: null,
       fileValue: '',
-      step: 0,
       decrypted: null,
     }
+  },
+  async created() {
+    this.secret = '';
+    this.file = null;
+    this.fileValue = '';
+    this.decrypted = null;
   },
   watch: {
     async decrypted(values) {
