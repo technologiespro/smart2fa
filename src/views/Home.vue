@@ -138,7 +138,7 @@
       <b-nav vertical class="w-100">
         <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span></b-nav-item>
         <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span></b-nav-item>
-        <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">Import from file</span></b-nav-item>
+        <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">{{$t('import_from_file')}}</span></b-nav-item>
       </b-nav>
     </div>
 
