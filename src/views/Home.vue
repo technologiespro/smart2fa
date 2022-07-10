@@ -210,7 +210,11 @@ export default {
     },
     jsonDownload() {
       let element = document.createElement('a');
-      let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.storedKeys));
+      const data = {
+        encrypted: false,
+        data: this.storedKeys,
+      };
+      let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
       element.setAttribute('href', url);
       element.setAttribute('download', 'smart2fa.json');
       element.style.display = 'none';
