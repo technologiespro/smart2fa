@@ -55,7 +55,7 @@ export default {
             let importResult = state.faKeys;
             importResult.splice(payload, 1);
             state.faKeys = importResult;
-        }
+        },
     },
 
     actions: {
@@ -65,11 +65,10 @@ export default {
         itemDel ({ commit }, value) {
             commit('ITEM_DEL', value)
         },
-        encryptKeys({ commit }, value) {
-            const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value.storedKeys),  CryptoJS.SHA384(value.password).toString()).toString();
+        encryptKeys({ commit }, password) {
             return {
                 encrypted: 'AES',
-                data: ciphertext,
+                data: CryptoJS.AES.encrypt(JSON.stringify(this.getters['keys2fa/faKeys']),  CryptoJS.SHA384(password).toString()).toString(),
             };
         }
     }
