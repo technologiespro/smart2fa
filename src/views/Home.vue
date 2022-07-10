@@ -11,15 +11,15 @@
 
         <b-navbar-nav>
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
-            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
+            <span class="text-white">{{ $t('import_from_google') }}</span>
           </b-nav-item>
           <b-nav-item v-show="isElectron || isNode" v-b-modal.modal-save-file>
-            <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('save_to_file') }}</span>
+            <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class="ml-auto nav-lang">
           <!--
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
@@ -49,11 +49,11 @@
 
     <div v-if="op === 'addKeyIn'"
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
-      <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; margin-top: 80px;"/>
+      <AddNewKeyIn style="margin-left: auto; margin-right: auto; width:100%; margin-top: 8px;"/>
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
-      <p class="text-white">{{ $t('token_add_info_input') }}</p>
+      <p class="text-white p-2">{{ $t('token_add_info_input') }}</p>
     </div>
 
     <div v-if="op === 'addKeyQR'"
@@ -154,12 +154,11 @@
     >
       <form ref="form">
         <b-form-group
-            label="Password"
-            label-for="password-input"
         >
           <b-form-input
               id="password-input"
               v-model="password"
+              :placeholder="$t('crypt_password')"
               required
           ></b-form-input>
         </b-form-group>
@@ -431,5 +430,9 @@ svg {
 
 #border {
   fill: #00517a
+}
+
+.nav-lang .nav-link {
+  color: #fff;
 }
 </style>
