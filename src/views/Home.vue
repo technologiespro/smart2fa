@@ -79,6 +79,15 @@
       </div>
     </div>
 
+    <div v-if="op === 'importFile'"
+         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
+      </div>
+      <ImportFromFile style="margin-left: auto; margin-right: auto; width:100%; margin-top: 6px;"/>
+
+    </div>
+
     <div class="row">
       <div class="container" style="margin-top:55px;padding-bottom: 48px;position: relative;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
@@ -126,10 +135,9 @@
     <div v-show="ddShow"
          style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
       <b-nav vertical class="w-100">
-        <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span>
-        </b-nav-item>
-        <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span>
-        </b-nav-item>
+        <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span></b-nav-item>
+        <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span></b-nav-item>
+        <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">Import from file</span></b-nav-item>
       </b-nav>
     </div>
 
@@ -175,6 +183,7 @@ function vbr(ms = 250) {
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
+import ImportFromFile from '@/components/ImportFromFile.vue';
 
 import {generateToken} from 'node-2fa';
 import * as OTPAuth from 'otpauth';
@@ -187,6 +196,7 @@ export default {
     AddNewKeyIn,
     AddNewKeyQr,
     QrCode,
+    ImportFromFile,
   },
   data() {
     return {
@@ -305,7 +315,7 @@ export default {
 
     jsonDownload() {
       let element = document.createElement('a');
-      const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys), this.password).toString();
+      const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys),  CryptoJS.SHA384(this.password).toString()).toString();
       const data = {
         encrypted: 'AES',
         data: ciphertext,
