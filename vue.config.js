@@ -1,12 +1,11 @@
-//const path = require('path');
+const path = require('path');
 const webpack = require('webpack');
 
-/*
+
 function resolveSrc(_path) {
   return path.join(__dirname, _path);
 }
 
- */
 
 module.exports = {
   publicPath: '',
@@ -19,10 +18,11 @@ module.exports = {
     // Set up all the aliases we use in our app.
     resolve: {
       alias: {
-        //src: resolveSrc('src'),
-       //assets: resolveSrc('src/assets')
+        src: resolveSrc('src'),
+        assets: resolveSrc('src/assets')
       }
     },
+
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 6

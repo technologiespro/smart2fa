@@ -36,7 +36,7 @@
       </b-collapse>
     </b-navbar>
 
-    <!--{{storedKeys}}-->
+
     <div v-if="op === 'importKeys'"
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
       <QrScanImport2fa
@@ -92,9 +92,6 @@
     <div class="row">
       <div class="container" style="margin-top:55px;padding-bottom: 48px;position: relative;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
-          <!--
-          <b-progress :value="((screenWidth * (seconds / totalSeconds * 100) / 100))" :max="screenWidth" animated style="border-radius:0;z-index:1000000;"></b-progress>
-          -->
           <span style="float: right;height: 5px;background: #1fab1a;"
                 :style="'width:' + ((screenWidth * (seconds / totalSeconds * 100) / 100)) + 'px;'"></span>
         </div>
@@ -112,16 +109,14 @@
 
             <span class="item-name" v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> <span
               class="item-name">{{ item.name }}</span>
-
-
             <br/>
 
             <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
               <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
             </div>
-            <span class="font-weight-bolder token">
-            {{ item.token }}
-          </span>
+            <Transition>
+              <span class="font-weight-bolder token">{{ item.token }}</span>
+            </Transition>
           </div>
         </div>
 
@@ -204,7 +199,6 @@ export default {
       importResult: [],
       allKeys: [],
       timer: null,
-      process: false,
       seconds: 0,
       totalSeconds: 32,
       timerTimeout: null,
