@@ -1,5 +1,6 @@
 {
   "lang": "Language",
+  "crypt_file_password": "Encrypt the file with a password",
   "import_from_file": "Import from file",
   "drop_file": "Choose a file or drop it here...",
   "password_not_valid": "Password is not valid",

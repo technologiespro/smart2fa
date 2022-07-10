@@ -13,7 +13,7 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
+          <b-nav-item v-show="isElectron || isNode" v-b-modal.modal-save-file>
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
@@ -147,7 +147,7 @@
     <b-modal
         id="modal-save-file"
         ref="modal"
-        title="Save with password"
+        :title="$t('crypt_file_password')"
         @show="resetModal"
         @hidden="resetModal"
         @ok="handleOk"
@@ -194,6 +194,7 @@ export default {
   data() {
     return {
       isElectron: process.env.IS_ELECTRON,
+      isNode: process.env.NODE_ENV,
       op: 'home',
       ddShow: false,
       importResult: [],

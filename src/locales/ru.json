@@ -1,5 +1,6 @@
 {
   "lang": "Язык",
+  "crypt_file_password": "Зашифровать файл паролем",
   "import_from_file": "Загрузить из файла",
   "drop_file": "Выберите файл или перенесите...",
   "password_not_valid": "Неверный пароль",
