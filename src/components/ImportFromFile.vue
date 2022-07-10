@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-2">
     <b-form-file
         v-model="file"
         :multiple="true"
@@ -9,10 +9,11 @@
         @input="loadData"
         accept=".json"
     ></b-form-file>
-    <div class="mt-3">{{ fileValue }}</div>
+    <div class="mt-3">{{decrypted}}</div>
 
 
 
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ export default {
       file: null,
       fileValue: '',
       step: 0,
+      decrypted: null,
     }
   },
   methods: {
@@ -34,8 +36,28 @@ export default {
         reader.readAsText(this.file[0]);
         let _self = this
         reader.onload = async function() {
-          _self.fileValue = reader.result;
+          _self.fileValue = JSON.parse(reader.result);
+          let password = CryptoJS.SHA384('11111').toString();
+          try {
+            let bytes  = CryptoJS.AES.decrypt(_self.fileValue.data, password);
+            _self.decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          } catch(e) {
+            _self.$snotify.error('Password is not valid', {
+              timeout: 3000,
+              showProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              position: 'leftBottom'
+            });
+          }
+
+
         };
+
+
+
+
+
       }
 
     }
