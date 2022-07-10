@@ -53,7 +53,7 @@ export default {
             let bytes  = CryptoJS.AES.decrypt(_self.fileValue.data, password);
             _self.decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
           } catch(e) {
-            _self.$snotify.error('Password is not valid', {
+            _self.$snotify.error(_self.$t('password_not_valid'), {
               timeout: 3000,
               showProgressBar: true,
               closeOnClick: true,
