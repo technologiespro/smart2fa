@@ -4,6 +4,7 @@
   "drop_file": "Choose a file or drop it here...",
   "password_not_valid": "Password is not valid",
   "btn_add": "Add",
+  "btn_load": "Load",
   "account_name": "Account Name",
   "enter_secret_key": "Enter secret key",
   "or_file_import": "or import QR from file",
