@@ -10,11 +10,18 @@
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <plugin name="cordova-plugin-whitelist" spec="1"/>
+
+    <!-- Enable requests to content: URLs -->
+    <access origin="content:///*" />
+    <allow-navigation href="data:*" />
+
     <plugin name="cordova.plugins.diagnostic" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashScreenDelay" value="3000" />
     <plugin name="cordova-plugin-vibration" spec="^3.1.1" />
     <preference name="Camera" value="true" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/ldpi.png" />

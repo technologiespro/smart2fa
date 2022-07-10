@@ -21,7 +21,7 @@ document.addEventListener('deviceready', function () {
   cordova.plugins.diagnostic.requestCameraAuthorization({
     success: success,
     error: error,
-    //externalStorage: true
+    externalStorage: false
   });
 
   navigator.mediaDevices.getUserMedia({video: true})

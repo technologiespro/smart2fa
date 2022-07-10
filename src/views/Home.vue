@@ -13,10 +13,9 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item @click="jsonDownload">
+          <b-nav-item v-show="isElectron" @click="jsonDownload">
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('save_to_file') }}</span>
           </b-nav-item>
-
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -167,6 +166,7 @@ export default {
   },
   data() {
     return {
+      isElectron: process.env.IS_ELECTRON,
       op: 'home',
       ddShow: false,
       importResult: [],
@@ -210,12 +210,15 @@ export default {
     },
     jsonDownload() {
       let element = document.createElement('a');
-      let url = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.storedKeys));
+      let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.storedKeys));
       element.setAttribute('href', url);
       element.setAttribute('download', 'smart2fa.json');
       element.style.display = 'none';
       document.body.appendChild(element);
       element.click();
+     if (!this.isElectron) {
+       window.open(url, '_blank');
+     }
       document.body.removeChild(element);
     },
     async setLang(locale) {
