@@ -45,7 +45,7 @@ document.addEventListener('deviceready', function () {
 
 
 import parser from "otpauth-migration-parser";
-import {QrcodeStream, QrcodeCapture} from 'vue-qrcode-reader'
+import { QrcodeStream } from 'vue-qrcode-reader'
 import eventBus from '@/plugins/event-bus';
 
 export default {
@@ -58,7 +58,7 @@ export default {
       destroyed: false
     }
   },
-  components: {QrcodeStream},
+  components: { QrcodeStream },
   methods: {
     async migrationImport(dataUri) {
       const parsedDataList = await parser(dataUri);
@@ -78,11 +78,6 @@ export default {
         */
       }
       await eventBus.emit('qr:importKeys', result)
-    },
-    async reload() {
-      this.destroyed = true
-      await this.$nextTick()
-      this.destroyed = false
     },
     async onDecode(result) {
       await this.migrationImport(result);

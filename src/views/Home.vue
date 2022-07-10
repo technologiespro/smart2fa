@@ -175,7 +175,7 @@
 
 <script>
 
-import CryptoJS from "crypto-js";
+//import CryptoJS from "crypto-js";
 
 function vbr(ms = 250) {
   navigator.vibrate(ms);
@@ -271,15 +271,12 @@ export default {
           token: generateToken(this.storedKeys[i].secret).token
         }
       }
-      //this.allKeys = result;
-      //await this.generateTokens();
     },
 
     async generateTokens() {
       if (this.storedKeys.length < 1) {
         return;
       }
-      //console.log('generateTokens');
       clearInterval(this.timer);
       clearTimeout(this.timerTimeout);
       await this.regenerateTokens();
@@ -294,15 +291,6 @@ export default {
           await this.generateTokens();
         }
       }, 1000);
-
-      /*
-      this.timerTimeout = setTimeout(async () => {
-        this.seconds = this.totalSeconds;
-        await this.generateTokens();
-        clearInterval(this.timer);
-      }, this.totalSeconds * 1000);
-       */
-
     },
 
     async timeSync() {
@@ -316,11 +304,17 @@ export default {
 
     jsonDownload() {
       let element = document.createElement('a');
-      const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys),  CryptoJS.SHA384(this.password).toString()).toString();
+      //const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys),  CryptoJS.SHA384(this.password).toString()).toString();
+      const ciphertext = this.$store.dispatch('keys2fa/encryptKeys', {
+        password: this.password,
+        keys: this.storedKeys
+      })
+
       const data = {
         encrypted: 'AES',
         data: ciphertext,
       };
+
       let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
       element.setAttribute('href', url);
       element.setAttribute('download', 'smart2fa.json');

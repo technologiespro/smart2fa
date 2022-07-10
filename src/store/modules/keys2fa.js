@@ -22,6 +22,8 @@
  */
 //import _ from 'lodash';
 
+import CryptoJS from 'crypto-js';
+
 export default {
     namespaced: true,
 
@@ -63,5 +65,12 @@ export default {
         itemDel ({ commit }, value) {
             commit('ITEM_DEL', value)
         },
+        encryptKeys({ commit }, value) {
+            const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value.storedKeys),  CryptoJS.SHA384(value.password).toString()).toString();
+            return {
+                encrypted: 'AES',
+                data: ciphertext,
+            };
+        }
     }
 }
