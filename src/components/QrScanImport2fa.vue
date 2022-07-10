@@ -6,10 +6,6 @@
       </div>
     </qrcode-stream>
 
-    <div class="mb-3 position-relative">
-    <p class="text-center mt-2 text-white">{{$t('or_file_import')}}</p>
-    <qrcode-capture @decode="onDecode" :capture="false"/>
-    </div>
     <hr/>
   </div>
 
@@ -62,7 +58,7 @@ export default {
       destroyed: false
     }
   },
-  components: {QrcodeStream, QrcodeCapture},
+  components: {QrcodeStream},
   methods: {
     async migrationImport(dataUri) {
       const parsedDataList = await parser(dataUri);

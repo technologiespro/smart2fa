@@ -41,7 +41,7 @@
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
       <QrScanImport2fa
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
-      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 125px;">
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 25px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('google_migrate_info') }}</p>
