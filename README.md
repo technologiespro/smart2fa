@@ -2,6 +2,8 @@
 
 Alternative open source software for 2FA authorization.
 
+![smart_2fa](https://user-images.githubusercontent.com/9394904/178127325-6f99d064-b3ff-4d97-b782-43dc5d2825d9.png)
+
 Main features v0.1.0
 
 - Import keys from Google Authenticator APP
@@ -13,8 +15,6 @@ Main features v0.1.0
 - Desktop/Mobile
 - Generation of a single QR to export a RAW key to another device
 - Built-in auto-synchronization of token time
-
-![2fascreen](https://user-images.githubusercontent.com/9394904/177456280-e8dc11a7-7f81-43fe-baa4-9699ddd90aa4.png)
 
 This is an early beta version, use at your own risk.
 
