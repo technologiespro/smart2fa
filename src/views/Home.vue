@@ -176,7 +176,7 @@ import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
 
-import { generateToken } from 'node-2fa';
+import {generateToken} from 'node-2fa';
 import * as OTPAuth from 'otpauth';
 import QrCode from '@/util/QRCode';
 
@@ -301,23 +301,23 @@ export default {
       this.currentTime >= 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
       this.seconds = this.currentTime + 5;
     },
-/** Save To File **/
+    /** Save To File **/
 
-jsonDownload() {
-  let element = document.createElement('a');
-  const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys), this.password).toString();
-  const data = {
-    encrypted: 'AES',
-    data: ciphertext,
-  };
-  let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-  element.setAttribute('href', url);
-  element.setAttribute('download', 'smart2fa.json');
-  element.style.display = 'none';
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-},
+    jsonDownload() {
+      let element = document.createElement('a');
+      const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys), this.password).toString();
+      const data = {
+        encrypted: 'AES',
+        data: ciphertext,
+      };
+      let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+      element.setAttribute('href', url);
+      element.setAttribute('download', 'smart2fa.json');
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    },
     resetModal() {
       this.password = '';
     },
