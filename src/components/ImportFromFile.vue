@@ -15,16 +15,13 @@
         <b-button class="w-100" :disabled="!secret" @click="loadData" variant="primary">{{$t('btn_add')}}</b-button>
       </div>
     </div>
-    <div class="mt-3">{{decrypted}}</div>
-
-
-
     <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
 import CryptoJS from "crypto-js";
+import eventBus from "@/plugins/event-bus";
 export default {
   name: "ImportFromFile",
   data() {
@@ -37,8 +34,10 @@ export default {
     }
   },
   watch: {
-    decrypted(value) {
-      console.log(value)
+    async decrypted(values) {
+      if (values.length) {
+        await eventBus.emit('qr:importKeys', values)
+      }
     }
   },
   methods: {
@@ -63,12 +62,7 @@ export default {
             });
           }
         };
-
-
-
-
       }
-
     }
   }
 }
