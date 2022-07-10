@@ -4,7 +4,7 @@
         v-model="file"
         :multiple="true"
         :state="Boolean(file)"
-        placeholder="Choose a file or drop it here..."
+        :placeholder="$t('drop_file')"
         drop-placeholder="Drop file here..."
         accept=".json"
     ></b-form-file>

@@ -1,6 +1,7 @@
 {
   "lang": "Language",
   "import_from_file": "Import from file",
+  "drop_file": "Choose a file or drop it here...",
   "btn_add": "Add",
   "account_name": "Account Name",
   "enter_secret_key": "Enter secret key",
