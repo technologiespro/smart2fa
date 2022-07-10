@@ -6,9 +6,15 @@
         :state="Boolean(file)"
         placeholder="Choose a file or drop it here..."
         drop-placeholder="Drop file here..."
-        @input="loadData"
         accept=".json"
     ></b-form-file>
+
+    <div class="mt-3" v-show="file">
+      <b-form-input class="mt-2" v-model="secret" :placeholder="$t('enter_secret_key')"></b-form-input>
+      <div class="mt-2">
+        <b-button class="w-100" :disabled="!secret" @click="loadData" variant="primary">{{$t('btn_add')}}</b-button>
+      </div>
+    </div>
     <div class="mt-3">{{decrypted}}</div>
 
 
@@ -23,21 +29,27 @@ export default {
   name: "ImportFromFile",
   data() {
     return {
+      secret: '',
       file: null,
       fileValue: '',
       step: 0,
       decrypted: null,
     }
   },
+  watch: {
+    decrypted(value) {
+      console.log(value)
+    }
+  },
   methods: {
     async loadData() {
       if (this.file) {
-        let reader = new FileReader();
+        const reader = new FileReader();
         reader.readAsText(this.file[0]);
         let _self = this
         reader.onload = async function() {
           _self.fileValue = JSON.parse(reader.result);
-          let password = CryptoJS.SHA384('11111').toString();
+          let password = CryptoJS.SHA384(_self.secret).toString();
           try {
             let bytes  = CryptoJS.AES.decrypt(_self.fileValue.data, password);
             _self.decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
@@ -50,10 +62,7 @@ export default {
               position: 'leftBottom'
             });
           }
-
-
         };
-
 
 
 
