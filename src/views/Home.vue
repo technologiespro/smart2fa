@@ -13,7 +13,7 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item v-show="isElectron" @click="jsonDownload">
+          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
             <span class="text-white" style="text-shadow: 1px 1px 0.1em #333;">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
@@ -133,17 +133,40 @@
       </b-nav>
     </div>
 
-
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
       <a ref="aUrl" target="_blank" href="https://smartholdem.io" class="small text-dark">
         {{ $t('powered') }} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{ currentVersion() }}
       </a>
     </div>
+
+    <b-modal
+        id="modal-save-file"
+        ref="modal"
+        title="Save with password"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+    >
+      <form ref="form">
+        <b-form-group
+            label="Password"
+            label-for="password-input"
+        >
+          <b-form-input
+              id="password-input"
+              v-model="password"
+              required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </div>
 </template>
 
 <script>
+
+import CryptoJS from "crypto-js";
 
 function vbr(ms = 250) {
   navigator.vibrate(ms);
@@ -152,6 +175,7 @@ function vbr(ms = 250) {
 import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
+
 import { generateToken } from 'node-2fa';
 import * as OTPAuth from 'otpauth';
 import QrCode from '@/util/QRCode';
@@ -183,11 +207,12 @@ export default {
       totpRaw: null,
       currentTime: 0,
       dateSeconds: 0,
+      password: '',
     }
   },
   computed: {
     storedKeys() {
-      return this.$store.getters['keys2fa/faKeys'];
+      return this.$store.getters['keys2fa/faKeys'] || [];
     }
   },
   methods: {
@@ -208,23 +233,7 @@ export default {
       await this.$store.dispatch('keys2fa/itemDel', idx);
       await this.generateTokens();
     },
-    jsonDownload() {
-      let element = document.createElement('a');
-      const data = {
-        encrypted: false,
-        data: this.storedKeys,
-      };
-      let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-      element.setAttribute('href', url);
-      element.setAttribute('download', 'smart2fa.json');
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-     if (!this.isElectron) {
-       window.open(url, '_blank');
-     }
-      document.body.removeChild(element);
-    },
+
     async setLang(locale) {
       await this.$store.dispatch('app/setLanguage', locale);
     },
@@ -291,8 +300,44 @@ export default {
       this.currentTime = 60 - this.dateSeconds;
       this.currentTime >= 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
       this.seconds = this.currentTime + 5;
-    }
+    },
+/** Save To File **/
 
+jsonDownload() {
+  let element = document.createElement('a');
+  const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.storedKeys), this.password).toString();
+  const data = {
+    encrypted: 'AES',
+    data: ciphertext,
+  };
+  let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+  element.setAttribute('href', url);
+  element.setAttribute('download', 'smart2fa.json');
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+},
+    resetModal() {
+      this.password = '';
+    },
+    handleOk(bvModalEvent) {
+      // Prevent modal from closing
+      bvModalEvent.preventDefault()
+      // Trigger submit handler
+      this.handleSubmit()
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.password) {
+        return
+      }
+      this.jsonDownload();
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$bvModal.hide('modal-save-file')
+      })
+    }
   },
   async created() {
     this.screenWidth = window.innerWidth;
