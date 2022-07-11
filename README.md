@@ -26,7 +26,8 @@ For application improvements, write to https://community.smartholdem.io/
   <img
   src="https://user-images.githubusercontent.com/9394904/178296762-e36a53a1-3f1b-4b76-a13b-1ff079a8e1b9.svg"
   alt="XBTS DEX" title="XBTS Cross-Chain DEX">
-  <figcaption>XBTS DEX Exchange</figcaption>
 </a>
+  <figcaption>XBTS DEX Exchange</figcaption>
+
 </figure>
 
