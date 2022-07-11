@@ -13,7 +13,7 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item v-show="isElectron || isNode" v-b-modal.modal-save-file>
+          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
             <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
