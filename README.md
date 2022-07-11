@@ -39,7 +39,7 @@ You can import Smart2FA backups in any device running Smart2FA Authenticator. Th
 We support most major multifactor authentication accounts including Github, Epic Games, Gmail, Facebook and thousands of other providers. We support 6, 8, and 12-digit tokens.
 
 ### Protect your Crypto
-Smart2FA is the two factor authentication solution to protect your cryptocurrency wallet. Вы можете использовать Smart2FA для работы с большинством криптовалютных бирж.
+Smart2FA is the two factor authentication solution to protect your cryptocurrency wallet.
 
 ### Open source
 Smart2FA is open source and licensed under GPLv3.
