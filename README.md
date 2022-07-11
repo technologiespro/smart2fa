@@ -4,6 +4,8 @@ Alternative open source software for 2FA authorization.
 
 ![smart_2fa](https://user-images.githubusercontent.com/9394904/178127325-6f99d064-b3ff-4d97-b782-43dc5d2825d9.png)
 
+![snake animation](https://github.com/technologiespro/technologiespro/blob/output/github-contribution-grid-snake2.svg)
+
 Main features v0.1.0
 
 - Import keys from Google Authenticator APP
