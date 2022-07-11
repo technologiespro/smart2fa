@@ -2,7 +2,7 @@
 
 Alternative open source software for 2FA authorization.
 
-![smart_2fa](https://user-images.githubusercontent.com/9394904/178127325-6f99d064-b3ff-4d97-b782-43dc5d2825d9.png)
+![promo_2FA](https://user-images.githubusercontent.com/9394904/178302234-12e6d562-0f02-4846-8d13-5e06b3086d4c.png)
 
 Main features v0.1.0
 
