@@ -87,6 +87,8 @@ Smart2FA имеет открытый исходный код и распрост
 ---
 ## Другие сервисы и приложения
 
-[![smartholdem256](https://user-images.githubusercontent.com/9394904/178296762-e36a53a1-3f1b-4b76-a13b-1ff079a8e1b9.svg)](https://xbts.io)
-[![smartholdem256](https://user-images.githubusercontent.com/9394904/178307849-e85929f4-22a5-416d-a4b5-03771eccf538.png)](https://smartholdem.io)
+[![smartholdem256](https://user-images.githubusercontent.com/9394904/178296762-e36a53a1-3f1b-4b76-a13b-1ff079a8e1b9.svg "XBTS Cross-chain DEX")](https://xbts.io) 
+
+
+[![smartholdem256](https://user-images.githubusercontent.com/9394904/178307849-e85929f4-22a5-416d-a4b5-03771eccf538.png "SmartHoldem Gaming Blockchain Platform")](https://smartholdem.io)
 
