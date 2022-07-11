@@ -1,4 +1,5 @@
 import packageJson from '../../package.json';
+import os from 'os';
 
 export default {
     data() {
@@ -7,6 +8,9 @@ export default {
         }
     },
     methods: {
+        getOs() {
+            return os.platform()
+        },
         currentVersion() {
             return packageJson.version;
         },
