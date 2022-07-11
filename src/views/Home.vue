@@ -243,6 +243,7 @@ export default {
     async itemSelect(idx) {
       await this.doCopyText(this.allKeys[idx].token)
       this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
+      await this.generateTokens();
     },
     async makeToast(variant = null, title = 'Success', message = '') {
       this.$bvToast.toast(message, {
