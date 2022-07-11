@@ -20,11 +20,13 @@ This is an early beta version, use at your own risk.
 
 For application improvements, write to https://community.smartholdem.io/
 
-<a href="https://xbts.io">
+
 <figure>
+<a href="https://xbts.io">
   <img
   src="https://user-images.githubusercontent.com/9394904/178296762-e36a53a1-3f1b-4b76-a13b-1ff079a8e1b9.svg"
   alt="XBTS DEX" title="XBTS Cross-Chain DEX">
   <figcaption>XBTS DEX Exchange</figcaption>
-</figure>
 </a>
+</figure>
+
