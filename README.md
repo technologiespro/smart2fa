@@ -1,4 +1,3 @@
-
 [![smart2fa](https://snapcraft.io/smart2fa/badge.svg)](https://snapcraft.io/smart2fa)
 
 # Smart 2FA
