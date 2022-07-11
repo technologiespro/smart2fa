@@ -2,7 +2,7 @@
 <widget id="io.smartholdem.fa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Smart2FA</name>
     <description>Sample Apache Cordova App</description>
-    <author email="dev@smartholdem.io" href="https://smartholdem.io">
+    <author email="technolog@smartholdem.io" href="https://smartholdem.io">
         Apache Cordova Team
     </author>
     <hook src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" type="after_prepare" />

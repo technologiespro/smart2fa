@@ -289,7 +289,7 @@ export default {
       this.dateSeconds = date.getUTCSeconds();
       this.currentTime = 60 - this.dateSeconds;
       this.currentTime >= 30 ? this.currentTime = this.currentTime - 30 : this.currentTime;
-      this.seconds = this.currentTime + 5;
+      this.seconds = this.currentTime; // + timeSecCorrection // вероятно добавить в след версии
     },
     /** Save To File **/
 
