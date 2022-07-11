@@ -26,7 +26,8 @@ Smart 2FA Feature overview
 - Desktop/Mobile
 - Generation of a single QR to export a RAW key to another device
 - Built-in auto-synchronization of token time
-- Cross-Platform
+- Cross-Platform.  You can use Smart2FA Authenticator in a simple and convenient interface using our Smart2FA Desktop application for macOS, Windows, and Linux devices.
+- Backups with AES 256-bit Encryption.  Export encrypted JSON files with keys on your desktop device. This keeps you in total control of your data while providing effective backup.
 
 ### Multi-device usage
 You can import Smart2FA backups in any device running Smart2FA Authenticator. This is highly useful in cases where you use 2 or several devices or need to switch your phone.
