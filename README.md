@@ -1,3 +1,6 @@
+
+[![smart2fa](https://snapcraft.io/smart2fa/badge.svg)](https://snapcraft.io/smart2fa)
+
 # Smart 2FA
 
 Smart2FA is a free, secure, open-source app allows you protect your accounts by adding 2-factor authentication (2FA). The app brings together best-in-class security practices and a seamless user experience together. Enable Smart2FA for your favorite online services.
