@@ -43,7 +43,6 @@
     "lodash": "^4.17.21",
     "mutationobserver-shim": "^0.3.7",
     "node-2fa": "^2.0.3",
-    "ntp-time-sync": "^0.2.1",
     "otpauth": "^8.0.1",
     "otpauth-migration-parser": "^0.1.1",
     "pbkdf2": "https://github.com/technologiespro/pbkdf2.git",
