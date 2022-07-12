@@ -1,4 +1,4 @@
-v0.1.0
+v1.0.0
 - Add time sync
 - Import keys from Google 2FA APP 
 - View clean data and keys 
@@ -10,3 +10,6 @@ v0.1.0
 - Desktop/Mobile 
 - Generation of a single QR to export a RAW key to another device
 - Load QR from file
+
+v1.0.1
+- reload camera on click
