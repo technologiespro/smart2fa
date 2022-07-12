@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qrcode-stream @decode="onDecode" @init="onInit">
+    <qrcode-stream @click="reload" @decode="onDecode" @init="onInit">
       <div class="loading-indicator" v-if="loading">
         Loading...
       </div>
@@ -103,6 +103,11 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    async reload () {
+      this.destroyed = true
+      await this.$nextTick()
+      this.destroyed = false
     }
   }
 }
