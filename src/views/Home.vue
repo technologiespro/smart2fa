@@ -2,7 +2,7 @@
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
-      <b-navbar-brand><img width="24px" src="images/logo48.png"/> Smart2FA
+      <b-navbar-brand><img width="24px" src="images/48x48.png"/> Smart2FA
         <span class="badge badge-success"
               style="border: solid 1px rgba(35,59,93,0.76);">{{ (seconds < 10 ? '0' + seconds : seconds) }}</span>
       </b-navbar-brand>
@@ -13,7 +13,7 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
+          <b-nav-item v-b-modal.modal-save-file>
             <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
@@ -28,8 +28,7 @@
           -->
 
           <b-nav-item-dropdown :text="$t('lang')" right class="text-white">
-            <b-dropdown-item @click="setLang('ru')">RU</b-dropdown-item>
-            <b-dropdown-item @click="setLang('en')">EN</b-dropdown-item>
+            <b-dropdown-item v-for="lang in langs" @click="setLang(lang)"><template v-if="getLang.toLowerCase() === lang.toLowerCase()">✅</template> {{ lang.toUpperCase() }}</b-dropdown-item>
           </b-nav-item-dropdown>
 
         </b-navbar-nav>
@@ -97,26 +96,31 @@
         </div>
 
         <!-- ITEMS -->
-        <div style="margin-top:5px;">
-          <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
+        <div class="mt-3" v-if="allKeys && allKeys.length > 0">
+          <div v-for="(item, idx) in allKeys" v-bind:key="idx" class="w-100 pl-2 item-2fa"
                style="position: relative"
                @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
-            <div v-show="submenu === idx" class="itemSubMenu">
-              <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
-              <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
-              <span @click="submenu = null" class="badge badge-warning text-uppercase">{{ $t('cancel') }}</span>
-            </div>
+            <template v-if="item">
+              <div v-show="submenu === idx" class="itemSubMenu">
+  <!--              <span @click="itemToggle(idx)" class="badge badge-dark mr-3 text-uppercase">{{ $t('toggle_token') }}</span>-->
+                <span @click="itemDelConfirm(idx)" class="badge badge-danger mr-3 text-uppercase">{{ $t('del') }}</span>
+                <span @click="itemRawData(idx)" class="badge badge-info mr-3 text-uppercase">{{ $t('raw') }}</span>
+                <span @click="submenu = null" class="badge badge-warning text-uppercase">{{ $t('cancel') }}</span>
+              </div>
 
-            <span class="item-name" v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> <span
-              class="item-name">{{ item.name }}</span>
-            <br/>
+              <span class="item-name" v-show="item?.name && !item?.name.includes(item?.issuer)">{{ item?.issuer }}</span>
+              <span class="item-name" v-if="item?.name">{{ item?.name }}</span>
+              <br/>
 
-            <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
-              <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
-            </div>
-            <Transition>
-              <span class="font-weight-bolder token">{{ item.token }}</span>
-            </Transition>
+              <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right action-dots-btn">
+                <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
+              </div>
+              <Transition>
+                <span class="font-weight-bolder token" v-if="item?.token">
+                  {{ item?.token }}
+                </span>
+              </Transition>
+            </template>
           </div>
         </div>
 
@@ -128,8 +132,7 @@
     </div>
 
     <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
-    <div v-show="ddShow"
-         style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
+    <div v-show="ddShow" class="add-actions-menu">
       <b-nav vertical class="w-100">
         <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span></b-nav-item>
         <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span></b-nav-item>
@@ -143,6 +146,14 @@
         {{ $t('powered') }} <img width="18px" src="images/48x48.png"/> SmartHoldem v{{ currentVersion() }}
       </a>
     </div>
+
+    <b-modal id="modal-delete-key" v-model="deleteKeyModalShow" :title="$t('confirm_to_delete_key')">
+      <div class="alert alert-danger w-100 d-block">{{ $t('delete_key_warning') }}</div>
+      <template #modal-footer>
+        <b-button variant="danger" @click="itemDel(itemDelIdx)">{{ $t('yes_delete_key') }}</b-button>
+        <b-button variant="outline-dark" @click="deleteKeyModalShow = false">{{ $t('no_delete_key') }}</b-button>
+      </template>
+    </b-modal>
 
     <b-modal
         id="modal-save-file"
@@ -210,11 +221,17 @@ export default {
       currentTime: 0,
       dateSeconds: 0,
       password: '',
+      itemDelIdx: -1,
+      deleteKeyModalShow: false,
+      langs: ['en', 'ru', 'ar'],
     }
   },
   computed: {
     storedKeys() {
       return this.$store.getters['keys2fa/faKeys'] || [];
+    },
+    getLang() {
+      return this.$store.getters['app/language'] || 'en';
     }
   },
   methods: {
@@ -234,6 +251,25 @@ export default {
       this.submenu = null;
       await this.$store.dispatch('keys2fa/itemDel', idx);
       await this.generateTokens();
+      delete this.allKeys[idx];
+      this.itemDelIdx = -1;
+      this.deleteKeyModalShow = false;
+      this.$snotify.success(this.$t('key_deleted'), {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        position: 'leftBottom'
+      });
+    },
+
+    // itemToggle(idx) {
+    //   this.allKeys[idx].show = !this.allKeys[idx].show;
+    // },
+
+    itemDelConfirm(idx) {
+      this.deleteKeyModalShow = true;
+      this.itemDelIdx = idx;
     },
 
     async setLang(locale) {
@@ -242,7 +278,7 @@ export default {
 
     async itemSelect(idx) {
       await this.generateTokens();
-      await this.doCopyText(this.allKeys[idx].token)
+      await this.doCopyText(this.allKeys[idx].token);
       this.selectedItem !== idx ? this.selectedItem = idx : this.selectedItem = null;
     },
     async makeToast(variant = null, title = 'Success', message = '') {
@@ -260,7 +296,7 @@ export default {
           secret: this.storedKeys[i].secret,
           issuer: this.storedKeys[i].issuer,
           name: this.storedKeys[i].name,
-          token: generateToken(this.storedKeys[i].secret).token
+          token: generateToken(this.storedKeys[i].secret).token,
         }
       }
     },
@@ -356,11 +392,11 @@ export default {
 
 .btnBotAdd {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   z-index: 1000;
-  width: 36px;
-  height: 36px;
+  width: 64px;
+  height: 64px;
 }
 
 .btnBotAdd:hover {
@@ -435,5 +471,26 @@ svg {
 
 .nav-lang .nav-link {
   color: #fff;
+}
+
+.action-dots-btn {
+  border-radius: 50%;
+  background-color: #fff;
+  margin-top: -1rem;
+  margin-right: 1rem;
+  padding: 0 1rem;
+}
+
+.add-actions-menu {
+  border-radius: 6px 6px 0 6px;
+  position: absolute;
+  bottom: 94px;
+  right: 25px;
+  background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);
+}
+
+a.nav-link:not(.add-actions-menu .nav-link) {
+  border: 2px solid;
+  margin: 0 0.3rem;
 }
 </style>
