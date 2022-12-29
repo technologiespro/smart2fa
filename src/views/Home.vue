@@ -10,9 +10,6 @@
       <b-collapse id="nav-collapse" is-nav>
 
         <b-navbar-nav>
-          <b-nav-item @click="op = 'importKeys'; ddShow = false">
-            <span class="text-white">{{ $t('import_from_google') }}</span>
-          </b-nav-item>
           <b-nav-item v-b-modal.modal-save-file>
             <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
@@ -78,14 +75,18 @@
       </div>
     </div>
 
-    <div v-if="op === 'importFile'"
-         style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
-
+    <div v-if="op === 'importFile'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
       <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <ImportFromFile style="margin-left: auto; margin-right: auto; width:100%; margin-top: 6px;"/>
+    </div>
 
+    <div v-if="op === 'importTextFile'" style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 1% !important; margin: 0 !important;z-index: 200000; ">
+      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 10px;">
+        <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
+      </div>
+      <ImportFromTextFile style="margin-left: auto; margin-right: auto; width:100%; margin-top: 6px;"/>
     </div>
 
     <div class="row">
@@ -124,6 +125,9 @@
           </div>
         </div>
 
+        <div v-else>
+          <div class="my-5 alert alert-warning">⚠️ {{ $t('no_items') }}</div>
+        </div>
         <!-- ITEMS END -->
 
 
@@ -136,7 +140,9 @@
       <b-nav vertical class="w-100">
         <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span></b-nav-item>
         <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span></b-nav-item>
-        <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">{{$t('import_from_file')}}</span></b-nav-item>
+        <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">{{ $t('import_from_file') }}</span></b-nav-item>
+        <b-nav-item @click="op = 'importKeys'; ddShow = false"><span class="text-white">{{ $t('import_from_google') }}</span></b-nav-item>
+        <b-nav-item @click="op = 'importTextFile'; ddShow = false"><span class="text-white">{{ $t('import_from_text_file') }}</span></b-nav-item>
       </b-nav>
     </div>
 
@@ -179,6 +185,7 @@
 </template>
 
 <script>
+
 function vbr(ms = 250) {
   navigator.vibrate(ms);
 }
@@ -187,6 +194,7 @@ import QrScanImport2fa from '@/components/QrScanImport2fa.vue';
 import AddNewKeyIn from '@/components/AddNewKeyIn.vue';
 import AddNewKeyQr from '@/components/AddNewKeyQr.vue';
 import ImportFromFile from '@/components/ImportFromFile.vue';
+import ImportFromTextFile from "@/components/ImportFromTextFile";
 
 import {generateToken} from 'node-2fa';
 import * as OTPAuth from 'otpauth';
@@ -200,6 +208,7 @@ export default {
     AddNewKeyQr,
     QrCode,
     ImportFromFile,
+    ImportFromTextFile,
   },
   data() {
     return {
@@ -291,18 +300,20 @@ export default {
     },
     async regenerateTokens() {
       this.allKeys = [];
-      for (let i = 0; i < this.storedKeys.length; i++) {
-        this.allKeys[i] = {
-          secret: this.storedKeys[i].secret,
-          issuer: this.storedKeys[i].issuer,
-          name: this.storedKeys[i].name,
-          token: generateToken(this.storedKeys[i].secret).token,
+      if(this.storedKeys && this.storedKeys.length > 0) {
+        for (let i = 0; i < this.storedKeys.length; i++) {
+          this.allKeys[i] = {
+            secret: this.storedKeys[i].secret,
+            issuer: this.storedKeys[i].issuer,
+            name: this.storedKeys[i].name,
+            token: generateToken(this.storedKeys[i].secret).token,
+          }
         }
       }
     },
 
     async generateTokens() {
-      if (this.storedKeys.length < 1) {
+      if (!this.storedKeys || this.storedKeys.length < 1) {
         return;
       }
       clearInterval(this.timer);
