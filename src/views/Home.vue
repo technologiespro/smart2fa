@@ -327,6 +327,12 @@ export default {
     }
   },
   async created() {
+
+    document.body.onfocus = async function(e){
+      console.info(e.type);
+      await this.generateTokens();
+    }
+
     this.screenWidth = window.innerWidth;
     this.$store._vm.$on('vuex-persist:ready', async () => {
       await this.generateTokens();
@@ -345,7 +351,7 @@ export default {
       });
       vbr();
     });
-  }
+  },
 }
 </script>
 
