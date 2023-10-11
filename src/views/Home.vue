@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
-              style="position: fixed;background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
+              style="position: fixed;background: linear-gradient(-45deg, #146eb9 1%, #146eb9 48%, #146eb9);">
       <b-navbar-brand><img width="24px" src="images/logo48.png"/> Smart2FA
         <span class="badge badge-success"
               style="border: solid 1px rgba(35,59,93,0.76);">{{ (seconds < 10 ? '0' + seconds : seconds) }}</span>
@@ -328,9 +328,10 @@ export default {
   },
   async created() {
 
+    var _self = this
     document.body.onfocus = async function(e){
       console.info(e.type);
-      await this.generateTokens();
+      await _self.generateTokens();
     }
 
     this.screenWidth = window.innerWidth;
