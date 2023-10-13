@@ -41,7 +41,7 @@ export default {
             state.language = payload
         },
         SET_PIN (state, payload) {
-            state.pin = payload
+           state.pin = CryptoJS.SHA384(payload).toString()
         },
     },
 
@@ -52,10 +52,11 @@ export default {
         },
         setPin ({ commit }, value) {
             if (value) {
-                commit('SET_PIN', CryptoJS.SHA384(value).toString())
+                commit('SET_PIN', value)
             }
         },
-        validatePinCode({ }, value) {
+        // eslint-disable-next-line no-unused-vars
+        validatePinCode({ commit },value) {
             const pinSha384 = CryptoJS.SHA384(value).toString();
             return pinSha384 === this.state.pin;
         },
