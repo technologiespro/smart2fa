@@ -65,6 +65,7 @@ export default {
         itemDel ({ commit }, value) {
             commit('ITEM_DEL', value)
         },
+        // eslint-disable-next-line no-unused-vars
         encryptKeys({ commit }, password) {
             return {
                 encrypted: 'AES',
