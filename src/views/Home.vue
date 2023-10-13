@@ -4,8 +4,7 @@
               style="position: fixed;background: linear-gradient(-45deg, #146eb9 1%, #146eb9 48%, #146eb9);">
       <b-navbar-brand><img width="24px" src="images/logo48.png"/> SMART 2FA
         <span class="badge badge-success"
-              style="border: solid 1px rgba(35,59,93,0.76);">
-          {{ (seconds < 10 ? '0' + seconds : seconds) }}
+              style="border: solid 1px rgba(35,59,93,0.76);" v-html="(seconds < 10 ? '0' + seconds : seconds)">
         </span>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -22,18 +21,10 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto nav-lang">
-          <!--
-          <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-          </b-nav-form>
-          -->
-
           <b-nav-item-dropdown :text="$t('lang')" right class="text-white">
             <b-dropdown-item @click="setLang('ru')">RU</b-dropdown-item>
             <b-dropdown-item @click="setLang('en')">EN</b-dropdown-item>
           </b-nav-item-dropdown>
-
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
