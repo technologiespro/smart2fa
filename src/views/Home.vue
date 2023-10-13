@@ -4,7 +4,9 @@
               style="position: fixed;background: linear-gradient(-45deg, #146eb9 1%, #146eb9 48%, #146eb9);">
       <b-navbar-brand><img width="24px" src="images/logo48.png"/> SMART 2FA
         <span class="badge badge-success"
-              style="border: solid 1px rgba(35,59,93,0.76);">{{ (seconds < 10 ? '0' + seconds : seconds) }}</span>
+              style="border: solid 1px rgba(35,59,93,0.76);">
+          {{ (seconds < 10 ? '0' + seconds : seconds) }}
+        </span>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -400,7 +402,7 @@ export default {
 
 .itemActive {
   /* text-shadow: 1px 1px 0.06em rgba(246, 244, 97, 0.6);*/
-  background: linear-gradient(-45deg, #9aebef 20%, #ffffff) !important;
+  background: linear-gradient(-45deg, #c9cfd3 20%, #c9cfd3) !important;
   border-bottom: 1px;
   border-bottom: solid 1px #1371ce;
 }
