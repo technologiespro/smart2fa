@@ -55,5 +55,9 @@ export default {
                 commit('SET_PIN', CryptoJS.SHA384(value).toString())
             }
         },
+        validatePinCode({ }, value) {
+            const pinSha384 = CryptoJS.SHA384(value).toString();
+            return pinSha384 === this.state.pin;
+        },
     }
 }
