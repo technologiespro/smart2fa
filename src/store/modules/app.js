@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 TechnoL0g.
+ * Copyright (c) 2022 - 2023 TechnoL0g.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,27 @@
  *
  */
 import i18n from '@/i18n';
+import CryptoJS from "crypto-js";
 
 export default {
     namespaced: true,
 
     state: {
         language: '',
+        pin: '',
     },
 
     getters: {
         language: state => state.language,
+        pin: state => state.pin,
     },
 
     mutations: {
         SET_LANGUAGE (state, payload) {
             state.language = payload
+        },
+        SET_PIN (state, payload) {
+            state.pin = payload
         },
     },
 
@@ -43,6 +49,11 @@ export default {
         setLanguage ({ commit }, value) {
             commit('SET_LANGUAGE', value)
             i18n.locale = value
+        },
+        setPin ({ commit }, value) {
+            if (value) {
+                commit('SET_PIN', CryptoJS.SHA384(value).toString())
+            }
         },
     }
 }
