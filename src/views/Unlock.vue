@@ -24,7 +24,21 @@
                   @input="validatePin"
               ></b-form-input>
             </b-form-group>
-            <b-button :disabled="!isValid" type="submit" variant="primary" class="text-uppercase">Unlock</b-button>
+
+            <div class="row">
+
+              <div class="col-6">
+                <b-button :disabled="!isValid" type="submit" variant="primary" class="w-100 text-uppercase">Unlock</b-button>
+              </div>
+              <div class="col-6">
+                <b-button @click="resetAll" variant="danger" class="w-100 text-uppercase">Reset All data?</b-button>
+              </div>
+
+            </div>
+
+
+
+
           </b-form>
         </div>
       </div>
@@ -44,6 +58,14 @@ export default {
     }
   },
   methods: {
+    async resetAll() {
+      await this.$store.dispatch('resetData');
+      await this.$store.dispatch('keys2fa/reset');
+      setTimeout(async () => {
+        await this.$router.push('/set-pin');
+      }, 500);
+
+    },
     async validatePin() {
       clearTimeout(this.unlockTimer);
       this.unlockTimer = setTimeout(async () => {

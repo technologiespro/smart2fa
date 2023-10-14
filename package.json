@@ -1,6 +1,6 @@
 {
   "name": "smart2fa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Alternative open source software for 2fa authorization",
   "author": "technolog <technolog@smartholdem.io>",

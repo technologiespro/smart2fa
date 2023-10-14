@@ -43,6 +43,10 @@ export default {
     },
 
     mutations: {
+        RESET(state) {
+            state.pin = '';
+            state.faKeys = [];
+        },
         SET_PIN (state, payload) {
             state.pin = payload;
         },
@@ -73,6 +77,9 @@ export default {
     },
 
     actions: {
+        async reset({ commit }) {
+            commit('RESET')
+        },
         setKeys ({ commit }, value) {
             commit('SET_KEYS', value)
         },

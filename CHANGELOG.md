@@ -1,3 +1,8 @@
+v1.0.2
+- otpauth-migration-parser fix
+- pbkdf2 fix
+- add pin simple code
+
 v1.0.0
 - Add time sync
 - Import keys from Google 2FA APP 
