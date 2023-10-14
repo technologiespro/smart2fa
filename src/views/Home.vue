@@ -122,7 +122,7 @@
 
     <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
     <div v-show="ddShow"
-         style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #38096d 1%, #4eabf7 48%, #00cccf);">
+         style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #4eabf7 1%, #4eabf7 48%, #4eabf7);">
       <b-nav vertical class="w-100">
         <b-nav-item @click="op = 'addKeyQR'; ddShow = false"><span class="text-white">{{ $t('qr_scan') }}</span></b-nav-item>
         <b-nav-item @click="op = 'addKeyIn'; ddShow = false"><span class="text-white">{{ $t('enter_key') }}</span></b-nav-item>
