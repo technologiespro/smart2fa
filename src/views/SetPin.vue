@@ -67,12 +67,10 @@ export default {
     }
   },
   methods: {
-    async formValidate() {
-
-    },
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault();
       //alert(JSON.stringify(this.form))
+      await this.$store.dispatch('app/setPin', this.form.pin1);
     },
   }
 }
