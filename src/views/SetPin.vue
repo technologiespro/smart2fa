@@ -70,7 +70,7 @@ export default {
     async onSubmit(event) {
       event.preventDefault();
       //alert(JSON.stringify(this.form))
-      await this.$store.dispatch('app/setPin', this.form.pin1);
+      await this.$store.dispatch('keys2fa/setPin', this.form.pin1);
       await this.$router.push('/');
     },
   }
