@@ -24,9 +24,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "SetPin" */ '../views/SetPin.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "SetPin" */ '../views/Login.vue')
+    path: '/unlock',
+    name: 'Unlock',
+    component: () => import(/* webpackChunkName: "SetPin" */ '../views/Unlock.vue')
   }
 ]
 
