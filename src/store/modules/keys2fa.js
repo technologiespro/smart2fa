@@ -29,13 +29,21 @@ export default {
 
     state: {
         faKeys: [],
+        encryptedKeys: {
+            encrypted: 'AES',
+            data: "", //Json > string
+        },
     },
 
     getters: {
         faKeys: state => state.faKeys,
+        encryptedKeys: state => state.encryptedKeys,
     },
 
     mutations: {
+        SET_ENCRYPTED_KEYS (state, payload) {
+            state.encryptedKeys = payload;
+        },
         SET_KEYS (state, payload) {
             let importResult = state.faKeys;
             for (let i = 0; i < payload.length; i++) {
@@ -50,11 +58,14 @@ export default {
                 }
             }
             state.faKeys = importResult;
+            this.$store.dispatch('keys2fa/encryptKeysWithPin', importResult);
+
         },
         ITEM_DEL(state, payload) {
             let importResult = state.faKeys;
             importResult.splice(payload, 1);
             state.faKeys = importResult;
+            this.$store.dispatch('keys2fa/encryptKeysWithPin', importResult);
         },
     },
 
@@ -71,6 +82,21 @@ export default {
                 encrypted: 'AES',
                 data: CryptoJS.AES.encrypt(JSON.stringify(this.getters['keys2fa/faKeys']),  CryptoJS.SHA384(password).toString()).toString(),
             };
+        },
+        // eslint-disable-next-line no-unused-vars
+        encryptKeysWithPin({ commit }, faKeys) {
+            const pin = this.getters['app/pin'];
+            if (pin) {
+                try {
+                    const value = {
+                        encrypted: 'AES',
+                        data: CryptoJS.AES.encrypt(JSON.stringify(faKeys),  CryptoJS.SHA384(pin).toString()).toString(),
+                    }
+                    commit('SET_ENCRYPTED_KEYS', value)
+                } catch(e) {
+                    console.log('err encryptKeysWithPin')
+                }
+            }
         }
     }
 }
