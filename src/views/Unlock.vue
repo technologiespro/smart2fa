@@ -52,12 +52,11 @@ export default {
           this.$root.tmpPin = this.pin;
           await this.$router.push('/');
         }
+        clearTimeout(this.unlockTimer);
       }, 200);
-
-
     },
-    onSubmit() {
-
+    async onSubmit() {
+      await this.validatePin();
     }
   }
 }
