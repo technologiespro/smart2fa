@@ -49,7 +49,7 @@ export default {
         SET_ENCRYPTED_KEYS (state, payload) {
             state.encryptedKeys = payload;
         },
-        SET_KEYS (state, payload) {
+        async SET_KEYS (state, payload) {
             let importResult = state.faKeys;
             for (let i = 0; i < payload.length; i++) {
                 let isDublicate = false;
@@ -63,13 +63,12 @@ export default {
                 }
             }
             state.faKeys = importResult;
-            this.dispatch('keys2fa/encryptKeysWithPin', importResult);
+            //this.dispatch('keys2fa/encryptKeysWithPin', importResult);
         },
-        ITEM_DEL(state, payload) {
+        async ITEM_DEL(state, payload) {
             let importResult = state.faKeys;
             importResult.splice(payload, 1);
             state.faKeys = importResult;
-            this.dispatch('keys2fa/encryptKeysWithPin', importResult);
         },
     },
 
@@ -120,10 +119,12 @@ export default {
             if (value) {
                 const pinHash = CryptoJS.SHA384(value).toString();
                 commit('SET_PIN', pinHash);
+                /*
                 const faKeys = this.getters['keys2fa/faKeys'];
                 if (faKeys.length > 0) {
                     await this.dispatch('keys2fa/encryptKeysWithPin', faKeys);
                 }
+                 */
             }
         },
         // eslint-disable-next-line no-unused-vars

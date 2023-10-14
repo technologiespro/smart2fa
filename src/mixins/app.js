@@ -15,7 +15,7 @@ export default {
             return packageJson.version;
         },
         async doCopyText(text) {
-            //if (text !== this.prevText) {
+            if (text !== this.prevText) {
                 this.prevText = text;
                 await this.$copyText(text);
                 this.$snotify.info(this.$t('copied'), {
@@ -25,7 +25,7 @@ export default {
                     pauseOnHover: true,
                     position: 'leftBottom'
                 });
-            //}
+            }
         },
     }
 }
