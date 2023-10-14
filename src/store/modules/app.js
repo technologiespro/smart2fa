@@ -21,27 +21,21 @@
  *
  */
 import i18n from '@/i18n';
-import CryptoJS from "crypto-js";
 
 export default {
     namespaced: true,
 
     state: {
         language: '',
-        pin: '',
     },
 
     getters: {
         language: state => state.language,
-        pin: state => state.pin,
     },
 
     mutations: {
         SET_LANGUAGE (state, payload) {
             state.language = payload
-        },
-        SET_PIN (state, payload) {
-           state.pin = CryptoJS.SHA384(payload).toString()
         },
     },
 
@@ -49,16 +43,6 @@ export default {
         setLanguage ({ commit }, value) {
             commit('SET_LANGUAGE', value)
             i18n.locale = value
-        },
-        setPin ({ commit }, value) {
-            if (value) {
-                commit('SET_PIN', value)
-            }
-        },
-        // eslint-disable-next-line no-unused-vars
-        validatePinCode({ commit },value) {
-            const pinSha384 = CryptoJS.SHA384(value).toString();
-            return pinSha384 === this.state.pin;
         },
     }
 }

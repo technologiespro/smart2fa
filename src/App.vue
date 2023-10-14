@@ -11,7 +11,7 @@ export default {
   methods: {},
   async beforeCreate() {
     this.$store._vm.$on('vuex-persist:ready', async () => {
-      const pin = await this.$store.getters['app/pin'];
+      const pin = await this.$store.getters['keys2fa/pin'];
       if (!pin) {
         await this.$router.push('/set-pin')
       }
