@@ -94,22 +94,21 @@
           <div v-for="(item, idx) in allKeys" v-bind:key="item.secret" class="w-100 pl-2 item-2fa"
                style="position: relative"
                @click="itemSelect(idx)" v-bind:class="{ itemActive: idx === selectedItem }">
-            <div v-show="submenu === idx" class="itemSubMenu">
-              <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
-              <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
-              <span @click="submenu = null" class="badge badge-warning text-uppercase">{{ $t('cancel') }}</span>
-            </div>
-
             <span class="item-name" v-show="!item.name.includes(item.issuer)">{{ item.issuer }}</span> <span
               class="item-name">{{ item.name }}</span>
             <br/>
-
             <div @click="submenu !== idx ? submenu = idx : submenu = null" class="float-right pr-2">
               <b-icon icon="three-dots-vertical" font-scale="1"></b-icon>
             </div>
             <Transition>
               <span class="font-weight-bolder token">{{ item.token }}</span>
             </Transition>
+
+            <div v-show="submenu === idx" class="itemSubMenu">
+              <span @click="itemDel(idx)" class="badge badge-danger mr-3">DEL</span>
+              <span @click="itemRawData(idx)" class="badge badge-info mr-3">RAW</span>
+              <span @click="submenu = null" class="badge badge-warning text-uppercase">{{ $t('cancel') }}</span>
+            </div>
           </div>
         </div>
 
@@ -206,14 +205,16 @@ export default {
   },
   computed: {
     storedKeys() {
-      //return this.$store.getters['keys2fa/faKeys'] || [];
-      return this.$root.keys || []
+      return this.$store.getters['keys2fa/faKeys'] || [];
+      //return this.$root.keys || []
     },
   },
   methods: {
+    /*
     async decryptKeys() {
       this.$root.keys = await this.$store.dispatch('keys2fa/decryptKeysWithPin')
     },
+     */
     async itemRawData(idx) {
       this.op = 'itemRawData';
       this.itemRaw = this.storedKeys[idx];
@@ -230,6 +231,13 @@ export default {
       this.submenu = null;
       await this.$store.dispatch('keys2fa/itemDel', idx);
       await this.generateTokens();
+      this.$snotify.warning('Deleted', {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        position: 'leftBottom'
+      });
     },
     async setLang(locale) {
       await this.$store.dispatch('app/setLanguage', locale);
@@ -319,7 +327,7 @@ export default {
   },
   async mounted() {
     setTimeout(async () => {
-      await this.decryptKeys();
+      //await this.decryptKeys();
       //this.$store._vm.$on('vuex-persist:ready', async () => {
         await this.generateTokens();
       //});
