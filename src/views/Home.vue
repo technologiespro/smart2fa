@@ -129,7 +129,6 @@
         <b-nav-item @click="op = 'importFile'; ddShow = false"><span class="text-white">{{$t('import_from_file')}}</span></b-nav-item>
       </b-nav>
     </div>
-
     <div v-show="ddShow" class="text-left w-100 pl-3"
          style="position: absolute; bottom: 0px; font-size: 16pt;background: rgba(255,255,255,0.89);">
       <a ref="aUrl" target="_blank" href="https://smartholdem.io" class="small text-dark">

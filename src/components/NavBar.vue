@@ -7,12 +7,26 @@
 
         </span>
     </b-navbar-brand>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="ml-auto nav-lang">
+        <b-nav-item-dropdown :text="$t('lang')" right class="text-white">
+          <b-dropdown-item @click="setLang('ru')">RU</b-dropdown-item>
+          <b-dropdown-item @click="setLang('en')">EN</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
   </b-navbar>
 </template>
 
 <script>
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  methods: {
+    async setLang(locale) {
+      await this.$store.dispatch('app/setLanguage', locale);
+    },
+  }
 }
 </script>
 

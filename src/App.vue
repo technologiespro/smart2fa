@@ -22,7 +22,7 @@ export default {
         this.$i18n.locale = storeLang;
       }
       if (!pin) {
-        await this.$router.push('/set-pin')
+        //await this.$router.push('/set-pin')
       }
     })
   },
