@@ -227,11 +227,9 @@ export default {
       await this.$store.dispatch('keys2fa/itemDel', idx);
       await this.generateTokens();
     },
-
     async setLang(locale) {
       await this.$store.dispatch('app/setLanguage', locale);
     },
-
     async itemSelect(idx) {
       await this.generateTokens();
       await this.doCopyText(this.allKeys[idx].token)
@@ -256,7 +254,6 @@ export default {
         }
       }
     },
-
     async generateTokens() {
       if (this.storedKeys.length < 1) {
         return;
@@ -276,7 +273,6 @@ export default {
         }
       }, 1000);
     },
-
     async timeSync() {
       let date = new Date(Date.now());
       this.dateSeconds = date.getUTCSeconds();
@@ -285,7 +281,6 @@ export default {
       this.seconds = this.currentTime; // + timeSecCorrection // вероятно добавить в след версии
     },
     /** Save To File **/
-
     async jsonDownload() {
       let element = document.createElement('a');
       const data = await this.$store.dispatch('keys2fa/encryptKeys', this.password)
@@ -318,18 +313,20 @@ export default {
       })
     }
   },
+  async mounted() {
+    setTimeout(async () => {
+      //this.$store._vm.$on('vuex-persist:ready', async () => {
+        await this.generateTokens();
+      //});
+    }, 200);
+  },
   async created() {
-
     var _self = this
-    document.body.onfocus = async function(e){
-      console.info(e.type);
+    document.body.onfocus = async function(){
+      //console.info(e.type);
       await _self.generateTokens();
     }
-
     this.screenWidth = window.innerWidth;
-    this.$store._vm.$on('vuex-persist:ready', async () => {
-      await this.generateTokens();
-    });
     await this.$eventBus.on('qr:importKeys', async (data) => {
       this.op = 'home';
       await this.$store.dispatch('keys2fa/setKeys', data);

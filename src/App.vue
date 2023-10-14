@@ -10,24 +10,25 @@
 export default {
   methods: {},
   async beforeCreate() {
+    this.$store._vm.$on('vuex-persist:ready', async () => {
+      const pin = await this.$store.getters['app/pin'];
+      if (!pin) {
+        await this.$router.push('/set-pin')
+      }
+    })
+  },
+  async created() {
     if (navigator.language === 'ru') {
       this.$i18n.locale = 'ru'
     } else {
       this.$i18n.locale = 'en'
     }
     this.$store._vm.$on('vuex-persist:ready', async () => {
-      const pin = await this.$store.getters['app/pin'];
       const storeLang = this.$store.getters['app/language'];
       if (storeLang) {
         this.$i18n.locale = storeLang;
       }
-      if (!pin) {
-        //await this.$router.push('/set-pin')
-      }
     })
-  },
-  async created() {
-
   }
 }
 </script>
