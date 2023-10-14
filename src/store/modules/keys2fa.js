@@ -28,6 +28,7 @@ export default {
     namespaced: true,
 
     state: {
+        pin: '',
         faKeys: [],
         encryptedKeys: {
             encrypted: 'AES',
@@ -36,11 +37,15 @@ export default {
     },
 
     getters: {
+        pin: state => state.pin,
         faKeys: state => state.faKeys,
         encryptedKeys: state => state.encryptedKeys,
     },
 
     mutations: {
+        SET_PIN (state, payload) {
+            state.pin = payload;
+        },
         SET_ENCRYPTED_KEYS (state, payload) {
             state.encryptedKeys = payload;
         },
@@ -58,14 +63,13 @@ export default {
                 }
             }
             state.faKeys = importResult;
-            this.$store.dispatch('keys2fa/encryptKeysWithPin', importResult);
-
+            this.dispatch('keys2fa/encryptKeysWithPin', importResult);
         },
         ITEM_DEL(state, payload) {
             let importResult = state.faKeys;
             importResult.splice(payload, 1);
             state.faKeys = importResult;
-            this.$store.dispatch('keys2fa/encryptKeysWithPin', importResult);
+            this.dispatch('keys2fa/encryptKeysWithPin', importResult);
         },
     },
 
@@ -84,19 +88,48 @@ export default {
             };
         },
         // eslint-disable-next-line no-unused-vars
-        encryptKeysWithPin({ commit }, faKeys) {
-            const pin = this.getters['app/pin'];
-            if (pin) {
+        async encryptKeysWithPin({ commit }, faKeys) {
+            const pinHash = this.getters['keys2fa/pin'];
+            if (pinHash.length) {
                 try {
                     const value = {
                         encrypted: 'AES',
-                        data: CryptoJS.AES.encrypt(JSON.stringify(faKeys),  CryptoJS.SHA384(pin).toString()).toString(),
+                        data: CryptoJS.AES.encrypt(JSON.stringify(faKeys), pinHash).toString(),
                     }
                     commit('SET_ENCRYPTED_KEYS', value)
                 } catch(e) {
                     console.log('err encryptKeysWithPin')
                 }
             }
-        }
+        },
+        // eslint-disable-next-line no-unused-vars
+        async decryptKeysWithPin() {
+            let decrypted = null;
+            const pinCode = await this.getters['keys2fa/pin'];
+            if (pinCode.length > 3) {
+                const encryptedKeys = this.getters['keys2fa/encryptedKeys'];
+                if (encryptedKeys.data) {
+                    const bytes  = CryptoJS.AES.decrypt(encryptedKeys.data, pinCode);
+                    decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                    //console.log('decrypted',decrypted)
+                }
+            }
+            return decrypted;
+        },
+        async setPin ({ commit }, value) {
+            if (value) {
+                const pinHash = CryptoJS.SHA384(value).toString();
+                commit('SET_PIN', pinHash);
+                const faKeys = this.getters['keys2fa/faKeys'];
+                if (faKeys.length > 0) {
+                    await this.dispatch('keys2fa/encryptKeysWithPin', faKeys);
+                }
+            }
+        },
+        // eslint-disable-next-line no-unused-vars
+        validatePinCode({ commit },value) {
+            const pinSha384 = CryptoJS.SHA384(value).toString();
+            return pinSha384 === this.getters['keys2fa/pin'];
+        },
     }
 }

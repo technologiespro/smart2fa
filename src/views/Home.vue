@@ -2,7 +2,7 @@
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #146eb9 1%, #146eb9 48%, #146eb9);">
-      <b-navbar-brand><img width="24px" src="images/logo48.png"/> SMART 2FA
+      <b-navbar-brand><img width="24px" src="images/logo48.png"/> <span class="small mr-1">SMART 2FA</span>
         <span class="badge badge-success"
               style="border: solid 1px rgba(35,59,93,0.76);" v-html="(seconds < 10 ? '0' + seconds : seconds)">
         </span>
@@ -206,10 +206,14 @@ export default {
   },
   computed: {
     storedKeys() {
-      return this.$store.getters['keys2fa/faKeys'] || [];
-    }
+      //return this.$store.getters['keys2fa/faKeys'] || [];
+      return this.$root.keys || []
+    },
   },
   methods: {
+    async decryptKeys() {
+      this.$root.keys = await this.$store.dispatch('keys2fa/decryptKeysWithPin')
+    },
     async itemRawData(idx) {
       this.op = 'itemRawData';
       this.itemRaw = this.storedKeys[idx];
@@ -311,10 +315,11 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide('modal-save-file')
       })
-    }
+    },
   },
   async mounted() {
     setTimeout(async () => {
+      await this.decryptKeys();
       //this.$store._vm.$on('vuex-persist:ready', async () => {
         await this.generateTokens();
       //});
