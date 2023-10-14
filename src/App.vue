@@ -28,13 +28,12 @@ export default {
       if (storeLang) {
         this.$i18n.locale = storeLang;
       }
-      if (!this.$root.tmpPin) {
-        if (this.$route.fullPath !== '/unlock') {
-          await this.$router.push('/unlock');
-        }
-
-      }
     })
+    if (!this.$root.tmpPin) {
+      if (this.$route.fullPath !== '/unlock') {
+        await this.$router.push('/unlock');
+      }
+    }
   }
 }
 </script>
