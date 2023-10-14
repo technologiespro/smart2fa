@@ -2,6 +2,7 @@ v1.0.2
 - otpauth-migration-parser fix
 - pbkdf2 fix
 - add pin simple code
+- add reset all data
 
 v1.0.0
 - Add time sync

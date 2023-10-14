@@ -26,20 +26,33 @@
             </b-form-group>
 
             <div class="row">
-
               <div class="col-6">
                 <b-button :disabled="!isValid" type="submit" variant="primary" class="w-100 text-uppercase">Unlock</b-button>
               </div>
               <div class="col-6">
-                <b-button @click="resetAll" variant="danger" class="w-100 text-uppercase">Reset All data?</b-button>
+                <b-button @click="show = false" variant="danger" class="w-100 text-uppercase">Reset All data?</b-button>
               </div>
-
             </div>
 
 
 
 
           </b-form>
+
+          <div v-if="!show">
+            <p class="text-danger">All your data, including created accounts will be removed from the app and reset to default.</p>
+
+            <div class="row">
+              <div class="col-6">
+                <b-button @click="show = true" variant="primary" class="w-100 text-uppercase">Back</b-button>
+              </div>
+              <div class="col-6">
+                <b-button @click="resetAll" variant="danger" class="w-100 text-uppercase">Confirm Reset?</b-button>
+              </div>
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
