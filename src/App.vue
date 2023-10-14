@@ -14,10 +14,6 @@ export default {
       const pin = await this.$store.getters['keys2fa/pin'];
       if (!pin) {
         await this.$router.push('/set-pin')
-      } else {
-        if (!this.$root.tmpPin) {
-          await this.$router.push('/unlock')
-        }
       }
     })
   },
@@ -31,6 +27,12 @@ export default {
       const storeLang = this.$store.getters['app/language'];
       if (storeLang) {
         this.$i18n.locale = storeLang;
+      }
+      if (!this.$root.tmpPin) {
+        if (this.$route.fullPath !== '/unlock') {
+          await this.$router.push('/unlock');
+        }
+
       }
     })
   }
