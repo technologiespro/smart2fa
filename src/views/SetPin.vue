@@ -71,6 +71,7 @@ export default {
       event.preventDefault();
       //alert(JSON.stringify(this.form))
       await this.$store.dispatch('app/setPin', this.form.pin1);
+      await this.$router.push('/');
     },
   }
 }
