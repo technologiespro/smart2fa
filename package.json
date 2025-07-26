@@ -1,9 +1,11 @@
 {
   "name": "smart2fa",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Alternative open source software for 2fa authorization",
   "author": "technolog <technolog@smartholdem.io>",
+  "license": "MIT",
+  "homepage": "https://github.com/technologiespro/smart2fa",
   "scripts": {
     "dev": "yarn run serve -- --port 8086 --open",
     "electron:build": "vue-cli-service electron:build",
@@ -29,7 +31,7 @@
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "4.2.0",
     "emittery": "^0.11.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
