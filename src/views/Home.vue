@@ -14,8 +14,8 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <!-- v-show="isElectron"  -->
-          <b-nav-item v-b-modal.modal-save-file>
+          <!--   -->
+          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
             <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
@@ -31,7 +31,8 @@
     </b-navbar>
 
 
-    <div v-if="op!=='home'" style="position: relative; max-width: 800px; height: 100vh; background: rgba(0,0,0,0.5); z-index: 200000;">
+    <div v-if="op!=='home'" style="max-width: 800px; height: 100vh; background: rgba(0,0,0,0.5); z-index: 200000;overflow: hidden; position: absolute; top:0; left:0; right:0; bottom:0;">
+
       <div class="text-center text-white" style="margin-top: 20px;">
         <b-spinner variant="primary" label="Loading..."></b-spinner>
       </div>
@@ -163,6 +164,9 @@
           ></b-form-input>
         </b-form-group>
       </form>
+      <!--
+      <a v-show="backup" id="download" download="smart2fa.json" :href="backup">Download</a>
+      -->
     </b-modal>
   </div>
 </template>
@@ -210,6 +214,7 @@ export default {
       currentTime: 0,
       dateSeconds: 0,
       password: '',
+      backup: '',
     }
   },
   computed: {
@@ -306,9 +311,10 @@ export default {
       let element = document.createElement('a');
       const data = await this.$store.dispatch('keys2fa/encryptKeys', this.password)
       let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+      //this.backup = url;
       element.setAttribute('href', url);
       element.setAttribute('download', 'smart2fa.json');
-      element.style.display = 'none';
+      element.style.display = 'block';
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
