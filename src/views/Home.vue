@@ -2,7 +2,7 @@
   <div class="w-100">
     <b-navbar toggleable="lg" type="dark" variant="info" :sticky="true" fixed="top"
               style="position: fixed;background: linear-gradient(-45deg, #146eb9 1%, #146eb9 48%, #146eb9);">
-      <b-navbar-brand><img width="24px" src="images/logo48.png"/> <span class="small mr-1">SMART 2FA</span>
+      <b-navbar-brand><img width="24px" src="images/logo48.png" alt="logo"/> <span class="small mr-1">SMART 2FA</span>
         <span class="badge badge-success"
               style="border: solid 1px rgba(35,59,93,0.76);" v-html="(seconds < 10 ? '0' + seconds : seconds)">
         </span>
@@ -14,7 +14,8 @@
           <b-nav-item @click="op = 'importKeys'; ddShow = false">
             <span class="text-white">{{ $t('import_from_google') }}</span>
           </b-nav-item>
-          <b-nav-item v-show="isElectron" v-b-modal.modal-save-file>
+          <!-- v-show="isElectron"  -->
+          <b-nav-item v-b-modal.modal-save-file>
             <span class="text-white">{{ $t('save_to_file') }}</span>
           </b-nav-item>
         </b-navbar-nav>
@@ -30,11 +31,16 @@
     </b-navbar>
 
 
+    <div v-if="op!=='home'" style="position: relative; max-width: 800px; height: 100vh; background: rgba(0,0,0,0.5); z-index: 200000;">
+      <div class="text-center text-white" style="margin-top: 20px;">
+        <b-spinner variant="primary" label="Loading..."></b-spinner>
+      </div>
+
     <div v-if="op === 'importKeys'"
          style="backdrop-filter: blur(4px); background: rgba(43,68,87,0.63); width: 100%; height: 100vh; position: absolute; top:0; padding: 4% !important; margin: 0 !important; z-index: 200000;">
       <QrScanImport2fa
           style="margin-left: auto; margin-right: auto; width:250px; height:250px; border: solid 2px #333;margin-top: 50px;"/>
-      <div style="margin-left: auto; margin-right: auto;width:25px;margin-bottom: 5px; margin-top: 25px;">
+      <div style="width:25px;margin: 25px auto 5px;">
         <b-button @click="op = 'home'" :pill="true" variant="success">X</b-button>
       </div>
       <p class="text-white">{{ $t('google_migrate_info') }}</p>
@@ -82,6 +88,9 @@
 
     </div>
 
+    </div>
+
+
     <div class="row">
       <div class="container" style="margin-top:55px;padding-bottom: 48px;position: relative;">
         <div class="w-100" style="background: rgb(193 51 162);position: fixed; margin-top: 0px">
@@ -119,7 +128,7 @@
 
     </div>
 
-    <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png"/>
+    <img @click="ddShow = !ddShow" class="btnBotAdd" src="images/add.png" alt="add"/>
     <div v-show="ddShow"
          style="border-radius: 6px 6px 0 6px; position: absolute; bottom: 56px;right: 15px; background: linear-gradient(-45deg, #4eabf7 1%, #4eabf7 48%, #4eabf7);">
       <b-nav vertical class="w-100">

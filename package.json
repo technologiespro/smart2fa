@@ -1,6 +1,6 @@
 {
   "name": "smart2fa",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "Alternative open source software for 2fa authorization",
   "author": "technolog <technolog@smartholdem.io>",
@@ -59,7 +59,7 @@
     "@vue/cli-plugin-vuex": "~4.5.13",
     "@vue/cli-service": "~4.5.13",
     "babel-eslint": "^10.1.0",
-    "electron": "13.0.0",
+    "electron": "31.0.0-beta.1",
     "electron-devtools-installer": "^3.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",

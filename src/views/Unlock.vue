@@ -27,10 +27,10 @@
 
             <div class="row">
               <div class="col-6">
-                <b-button :disabled="!isValid" type="submit" variant="primary" class="w-100 text-uppercase">Unlock</b-button>
+                <b-button :disabled="!isValid" type="submit" variant="primary" class="w-100 text-uppercase">{{$t('unlock')}}</b-button>
               </div>
               <div class="col-6">
-                <b-button @click="show = false" variant="danger" class="w-100 text-uppercase">Reset All data?</b-button>
+                <b-button @click="show = false" variant="danger" class="w-100 text-uppercase">{{$t('remove')}}</b-button>
               </div>
             </div>
 
