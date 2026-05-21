@@ -4,7 +4,7 @@
 
 Smart2FA is a free, secure, open-source app allows you protect your accounts by adding 2-factor authentication (2FA). The app brings together best-in-class security practices and a seamless user experience together. Enable Smart2FA for your favorite online services.
 
-![promo_2FA](https://user-images.githubusercontent.com/9394904/178302234-12e6d562-0f02-4846-8d13-5e06b3086d4c.png)
+<img width="100%" alt="Premium2fa" src="https://github.com/user-attachments/assets/9bc33413-9c76-4738-aead-78de8ddc6eca" />
 
 The Smart2FA app generates secure 2 step verification tokens on your device. It helps you protect your account by adding an additional layer of security. Just enable the two-factor authentication in your account settings for your provider, scan the QR code provided and you're good to go!
 
